@@ -15,8 +15,8 @@ def get_columns():
         """
         Academic Year,academic_year,,,150
         Academic Term,academic_term,,,150
-        Program,program,,,120
-        Batch,student_batch_name,,120
+        Class,program,,,120
+        Division,student_batch_name,,120
         GR No.,g_r_number,,,120
         Roll No.,group_roll_number,,Int,120
         Class Status,active,,,120
@@ -38,7 +38,7 @@ def get_data(filters):
     inner join `tabStudent Group` tsg on tsg.program = tpe.program and tsg.academic_term = tpe.academic_term 
     inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = ts.name 
     {cond}
-    order by tpe.program , tsgs.group_roll_number , ts.g_r_number 
+    order by tpe.program , tpe.student_batch_name , tsgs.group_roll_number , ts.g_r_number 
     """.format(
             cond=get_conditions(filters)
         ),
