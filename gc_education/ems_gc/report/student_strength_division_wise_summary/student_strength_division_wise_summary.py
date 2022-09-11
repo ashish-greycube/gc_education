@@ -15,13 +15,9 @@ def get_columns():
         """
         Academic Year,academic_year,,,150
         Academic Term,academic_term,,,150
-        Class,program,,,120
-        Division,student_batch_name,,120
-        GR No.,g_r_number,,,120
-        Roll No.,group_roll_number,,Int,120
-        Status,status,,,120
-        Class Status,class_status,,,120
-        Name,title,,,250
+        Class,class,,,250
+        Division,class_division,,,250
+		Total,strength,Int,,200
     """
     )
 
@@ -29,18 +25,27 @@ def get_columns():
 def get_data(filters):
     data = frappe.db.sql(
         """
-    select 
+	select 
+		t.academic_year , t.academic_term , t.class , t.class_division , count(*) strength
+	from 
+    (
+		select 
         tpe.academic_year , tpe.academic_term , 
-        tpe.program , tpe.student_batch_name , 
+        tpe.program class, tpe.student_batch_name division, 
+        concat( tpe.program, ' - ', tpe.student_batch_name) class_division, 
         ts.g_r_number , tsgs.group_roll_number , ts.title ,
         case tsgs.active when 1 then 'Active' else 'Inactive' end class_status ,
         case tsg.disabled when 1 then 'Disabled' else 'Enabled' end status
-    from tabStudent ts 
-    inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
-    inner join `tabStudent Group` tsg on tsg.program = tpe.program and tsg.academic_term = tpe.academic_term 
-    inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = ts.name 
-    {cond}
-    order by tpe.program , tpe.student_batch_name , tsgs.group_roll_number , ts.g_r_number 
+		from tabStudent ts 
+		inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
+		inner join `tabStudent Group` tsg on tsg.program = tpe.program 
+			and tsg.academic_term = tpe.academic_term 
+		inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name 
+			and tsgs.student = ts.name 
+		{cond}
+	) t
+	group by academic_year , academic_term , class , class_division
+    order by class , division 
     """.format(
             cond=get_conditions(filters)
         ),
