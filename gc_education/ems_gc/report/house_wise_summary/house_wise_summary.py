@@ -15,7 +15,8 @@ def get_data(filters):
     data = frappe.db.sql(
         """
     select 
-        tpe.program class, tpe.student_batch_name division , tpe.school_house , ts.gender , ts.name
+        tpe.program class, tpe.student_batch_name division , tpe.school_house , ts.gender , ts.name ,
+         tpe.academic_year , tpe.academic_term
     from `tabProgram Enrollment` tpe	
     inner join tabStudent ts on ts.name = tpe.student
     {cond}
@@ -33,6 +34,8 @@ def get_data(filters):
     df1 = pandas.pivot_table(
         df,
         index=[
+            "academic_year",
+            "academic_term",
             "class",
             "division",
         ],
@@ -50,15 +53,7 @@ def get_data(filters):
     )
     df2 = df1.reset_index()
 
-    columns = [
-        dict(label="Class", fieldname="class", fieldtype="Data", width=160),
-        dict(
-            label="Division",
-            fieldname="division",
-            fieldtype="Data",
-            width=160,
-        ),
-    ]
+    columns = get_columns()
 
     for col in df1.columns.to_list():
         columns += [
@@ -70,6 +65,7 @@ def get_data(filters):
     out = []
     for d in df2.to_dict("r"):
         out.append({k: v for k, v in d.items() if v})
+    out[-1]["bold"] = 1
 
     return columns, out
 
@@ -85,3 +81,14 @@ def get_conditions(filters):
     if filters.get("batch"):
         conditions.append(" tpe.student_batch_name = %(batch)s")
     return conditions and "where" + " and ".join(conditions) or ""
+
+
+def get_columns():
+    return csv_to_columns(
+        """
+    Academic Year,academic_year,,,160
+    Academic Term,academic_term,,,160
+    Class,class,,,145
+    Division,division,,,145
+    """
+    )
