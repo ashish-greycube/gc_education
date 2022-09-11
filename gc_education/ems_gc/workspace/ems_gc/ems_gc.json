@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>EMS GC Custom Reports</b></span>\",\"col\":10}},{\"type\":\"card\",\"data\":{\"card_name\":\"Report\",\"col\":4}}]",
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>EMS GC Custom Reports</b></span>\",\"col\":10}},{\"type\":\"card\",\"data\":{\"card_name\":\"Report\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Fees Reports\",\"col\":4}}]",
  "creation": "2022-09-11 10:23:58.070038",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -100,6 +100,14 @@
   },
   {
    "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fees Reports",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
    "is_query_report": 1,
    "label": "Student-wise Fees Status",
    "link_count": 0,
@@ -107,9 +115,59 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Date-wise Receipt",
+   "link_count": 0,
+   "link_to": "Date-wise Receipt",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Batch-wise Fees Collection",
+   "link_count": 0,
+   "link_to": "Batch-wise Fees Collection",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Division-wise Fees Status",
+   "link_count": 0,
+   "link_to": "Division-wise Fees Status",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Student-wise Pending Fees",
+   "link_count": 0,
+   "link_to": "Student-wise Pending Fees",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Daily Fee Collection MIS",
+   "link_count": 0,
+   "link_to": "Daily Fee Collection MIS",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-09-11 10:51:01.964623",
+ "modified": "2022-09-11 14:00:06.886436",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS GC",

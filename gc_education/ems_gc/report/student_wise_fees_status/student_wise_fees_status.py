@@ -36,13 +36,16 @@ def get_data(filters):
 		tfs.academic_year , tfs.academic_term , tfs.program ,
 		tf.student , tf.student_name , tf.grand_total , tf.outstanding_amount , 
 		tf.grand_total - tf.outstanding_amount paid_amount , 
-		tf.branch , tf.cost_center , tsg.batch division
+		tf.branch , tf.cost_center , tsg.batch division , 
+        ts.student_mobile_number , tsgs.group_roll_number
 	from `tabFee Schedule` tfs 
 	inner join `tabFee Schedule Student Group` tfssg on tfssg.parent = tfs.name
 	inner join `tabStudent Group` tsg on tsg.name = tfssg.student_group 
 	inner JOIN tabFees tf on tf.fee_schedule = tfs.name
+    inner join tabStudent ts on ts.name = tf.student
+    inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = ts.name 
     {cond}
-    order by tfs.program 
+    order by tfs.program , tsg.batch , tsgs.group_roll_number
     """.format(
             cond=get_conditions(filters)
         ),
