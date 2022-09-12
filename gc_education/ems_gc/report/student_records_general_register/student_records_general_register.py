@@ -60,8 +60,8 @@ def get_data(filters):
 			ts.date_of_leaving , ts.leaving_certificate_number ,
 			fn.program admission_class , fn2.program leaving_class 
 			from tabStudent ts 
-			left outer join tabGuardian pa on pa.student_id = ts.name
-			left outer join tabGuardian ma on ma.student_id = ts.name
+			left outer join tabGuardian pa on pa.student_id = ts.name and designation = 'Father'
+			left outer join tabGuardian ma on ma.student_id = ts.name and designation = 'Mother'
 			inner JOIN fn on fn.student = ts.name
 			left outer join fn2 on fn2.student = ts.name and ts.date_of_leaving is not null
     {cond}
