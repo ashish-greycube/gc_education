@@ -6,7 +6,14 @@ frappe.query_reports["Division-wise Fees Status"] = {
 	"filters": [
 		{ "label": "Academic Year", "fieldname": "academic_year", "fieldtype": "Link", "options": "Academic Year", },
 		{ "label": "Academic Term", "fieldname": "academic_term", "fieldtype": "Link", "options": "Academic Term", },
-		{ "label": "Class", "fieldname": "program", "fieldtype": "Link", "options": "Program", },
+		{
+			"fieldname": "program",
+			"label": __("Class List"),
+			"fieldtype": "MultiSelectList",
+			get_data: function (txt) {
+				return frappe.db.get_link_options('Program', txt);
+			}
+		},
 		{ "label": "Division", "fieldname": "batch", "fieldtype": "Link", "options": "Student Batch Name", },
 		{
 			"fieldname": "from_date",

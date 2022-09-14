@@ -87,10 +87,15 @@ def get_conditions(filters):
         conditions.append(" tpe.program = %(program)s")
     if filters.get("batch"):
         conditions.append(" tpe.batch = %(batch)s")
-    if filters.get("student_status"):
+    if filters.get("as_on_date"):
+        conditions.append(
+            "(ts.date_of_leaving is null or ts.date_of_leaving >= %(as_on_date)s)"
+        )
+    if filters.get("student_status") and not filters.student_status == "All":
         conditions.append(
             "ts.enabled = {}".format(
                 filters.get("student_status") == "Enabled" and 1 or 0
             )
         )
+
     return conditions and " where " + " and ".join(conditions) or ""

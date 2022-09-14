@@ -53,6 +53,7 @@ def get_data(filters):
         ),
         filters,
         as_dict=True,
+        debug=1,
     )
 
     return data
@@ -64,13 +65,19 @@ def get_conditions(filters):
         conditions.append(" enr.academic_year = %(academic_year)s")
     if filters.get("academic_term"):
         conditions.append(" enr.academic_term = %(academic_term)s")
-    if filters.get("program"):
-        conditions.append(" enr.program = %(program)s")
     if filters.get("batch"):
         conditions.append(" enr.student_batch_name = %(batch)s")
     if filters.get("from_date"):
         conditions.append("tpe.posting_date >= %(from_date)s")
     if filters.get("to_date"):
         conditions.append("tpe.posting_date <= %(to_date)s")
-
+    if filters.get("program"):
+        lst = filters.program
+        # to prevent SQL Injection
+        programs = frappe.get_list("Program", pluck="name")
+        conditions.append(
+            "enr.program in ({})".format(
+                ",".join(["'%s'" % d for d in lst if d in programs])
+            )
+        )
     return conditions and " and " + " and ".join(conditions) or ""

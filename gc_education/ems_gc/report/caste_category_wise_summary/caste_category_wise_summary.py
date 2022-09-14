@@ -11,6 +11,8 @@ def execute(filters=None):
 
 
 def get_data(filters):
+    columns = get_columns()
+
     data = frappe.db.sql(
         """
     select 
@@ -25,6 +27,9 @@ def get_data(filters):
         filters,
         as_dict=True,
     )
+
+    if not data:
+        return columns, data
 
     df = pandas.DataFrame.from_records(data)
     df1 = pandas.pivot_table(
@@ -48,8 +53,6 @@ def get_data(filters):
         df1.columns.to_series().str[1] + " (" + df1.columns.to_series().str[2] + ")"
     )
     df2 = df1.reset_index()
-
-    columns = get_columns()
 
     for col in df1.columns.to_list():
         columns += [
@@ -82,10 +85,17 @@ def get_conditions(filters):
     if filters.get("academic_term"):
         conditions.append(" tpe.academic_term = %(academic_term)s")
     if filters.get("program"):
-        conditions.append(" tpe.program = %(program)s")
+        lst = filters.program
+        # to prevent SQL Injection
+        programs = frappe.get_list("Program", pluck="name")
+        conditions.append(
+            "tpe.program in ({})".format(
+                ",".join(["'%s'" % d for d in lst if d in programs])
+            )
+        )
     if filters.get("batch"):
         conditions.append(" tpe.student_batch_name = %(batch)s")
-    if filters.get("student_status"):
+    if filters.get("student_status") and not filters.student_status == "All":
         conditions.append(
             "ts.enabled = {}".format(
                 filters.get("student_status") == "Enabled" and 1 or 0

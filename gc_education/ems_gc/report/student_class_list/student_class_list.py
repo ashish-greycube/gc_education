@@ -16,19 +16,20 @@ def get_columns():
         """
         Academic Year,academic_year,,,150
         Academic Term,academic_term,,,150
-        Class,program,,,120
-        Division,student_batch_name,,120
+        Class,program,,,190
+        Division,student_batch_name,,,190
         GR No.,g_r_number,,,120
         Roll No.,group_roll_number,,Int,120
+        Name,title,,,290
         Student Status,student_status,,,120
         Class Status,class_status,,,120
-        Name,title,,,250
         LC Number,leaving_certificate_number,,,130
     """
     )
 
 
 def get_data(filters):
+
     data = frappe.db.sql(
         """
     select 
@@ -36,7 +37,10 @@ def get_data(filters):
         tpe.program , tpe.student_batch_name , 
         ts.g_r_number , tsgs.group_roll_number , ts.title ,
         case tsgs.active when 1 then 'Active' else 'Inactive' end class_status ,
-        case ts.enabled when 1 then 'Enabled' else 'Disabled' end student_status ,
+        case 
+            when ts.enabled = 1 then 'Enabled' 
+            when ts.date_of_leaving is not null and ts.date_of_leaving > %(as_on_date)s then 'Enabled'
+            else 'Disabled' end student_status ,
         ts.leaving_certificate_number 
     from tabStudent ts 
     inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
@@ -67,14 +71,22 @@ def get_conditions(filters):
         conditions.append(" tpe.academic_year = %(academic_year)s")
     if filters.get("academic_term"):
         conditions.append(" tpe.academic_term = %(academic_term)s")
-    if filters.get("program"):
-        conditions.append(" tpe.program = %(program)s")
     if filters.get("batch"):
         conditions.append(" tpe.student_batch_name = %(batch)s")
-    if filters.get("student_status"):
+    if filters.get("student_status") and not filters.student_status == "All":
         conditions.append(
             "ts.enabled = {}".format(
                 filters.get("student_status") == "Enabled" and 1 or 0
             )
         )
+    if filters.get("program"):
+        lst = filters.program
+        # to prevent SQL Injection
+        programs = frappe.get_list("Program", pluck="name")
+        conditions.append(
+            "tpe.program in ({})".format(
+                ",".join(["'%s'" % d for d in lst if d in programs])
+            )
+        )
+
     return conditions and " where " + " and ".join(conditions) or ""

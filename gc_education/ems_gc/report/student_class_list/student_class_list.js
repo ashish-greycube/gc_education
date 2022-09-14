@@ -6,13 +6,28 @@ frappe.query_reports["Student Class List"] = {
 	"filters": [
 		{ "label": "Academic Year", "fieldname": "academic_year", "fieldtype": "Link", "options": "Academic Year", },
 		{ "label": "Academic Term", "fieldname": "academic_term", "fieldtype": "Link", "options": "Academic Term", },
-		{ "label": "Class", "fieldname": "program", "fieldtype": "Link", "options": "Program", },
+		{
+			"fieldname": "program",
+			"label": __("Class List"),
+			"fieldtype": "MultiSelectList",
+			get_data: function (txt) {
+				return frappe.db.get_link_options('Program', txt);
+			}
+		},
 		{ "label": "Division", "fieldname": "batch", "fieldtype": "Link", "options": "Student Batch Name", },
 		{
+			"fieldname": "as_on_date",
+			"label": __("As on Date"),
+			"fieldtype": "Date",
+			"default": frappe.datetime.get_today(),
+			"reqd": 1
+		},
+		{
 			"label": "Student Status", "fieldname": "student_status",
-			"fieldtype": "Select", "options": "\nEnabled\nDisabled",
+			"fieldtype": "Select", "options": "All\nEnabled\nDisabled",
 			"default": "Enabled",
-		}
+		},
+
 	],
 	onload: function (report) {
 		// set_options()

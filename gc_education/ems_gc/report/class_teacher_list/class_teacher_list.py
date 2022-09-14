@@ -57,8 +57,15 @@ def get_conditions(filters):
         conditions.append(" tsg.academic_year = %(academic_year)s")
     if filters.get("academic_term"):
         conditions.append(" tsg.academic_term = %(academic_term)s")
-    if filters.get("program"):
-        conditions.append(" tsg.program = %(program)s")
     if filters.get("batch"):
         conditions.append(" tsg.batch = %(batch)s")
-    return conditions and "where" + " and ".join(conditions) or ""
+    if filters.get("program"):
+        lst = filters.program
+        # to prevent SQL Injection
+        programs = frappe.get_list("Program", pluck="name")
+        conditions.append(
+            "tsg.program in ({})".format(
+                ",".join(["'%s'" % d for d in lst if d in programs])
+            )
+        )
+    return conditions and " where " + " and ".join(conditions) or ""
