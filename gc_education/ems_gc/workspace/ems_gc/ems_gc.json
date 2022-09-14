@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"card\",\"data\":{\"card_name\":\"Student Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Fees Reports\",\"col\":4}}]",
+ "content": "[{\"type\":\"card\",\"data\":{\"card_name\":\"Student Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Fees Reports\",\"col\":5}}]",
  "creation": "2022-09-11 10:23:58.070038",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -10,76 +10,6 @@
  "idx": 0,
  "label": "EMS GC",
  "links": [
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Caste Category-wise Summary",
-   "link_count": 0,
-   "link_to": "Caste Category-wise Summary",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Student Strength Division-Wise Summary",
-   "link_count": 0,
-   "link_to": "Student Strength Division-Wise Summary",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Religion-wise Summary",
-   "link_count": 0,
-   "link_to": "Religion-wise Summary",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Gender-wise Summary",
-   "link_count": 0,
-   "link_to": "Gender-wise Summary",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Class Teacher List",
-   "link_count": 0,
-   "link_to": "Class Teacher List",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "House-wise Summary",
-   "link_count": 0,
-   "link_to": "House-wise Summary",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Student Records General Register",
-   "link_count": 0,
-   "link_to": "Student Records General Register",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -101,19 +31,9 @@
   {
    "hidden": 0,
    "is_query_report": 1,
-   "label": "Date-wise Receipt",
+   "label": "Student-wise Pending Fees",
    "link_count": 0,
-   "link_to": "Date-wise Receipt",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Batch-wise Fees Collection",
-   "link_count": 0,
-   "link_to": "Batch-wise Fees Collection",
+   "link_to": "Student-wise Pending Fees",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
@@ -131,9 +51,19 @@
   {
    "hidden": 0,
    "is_query_report": 1,
-   "label": "Student-wise Pending Fees",
+   "label": "Date-wise Receipt",
    "link_count": 0,
-   "link_to": "Student-wise Pending Fees",
+   "link_to": "Date-wise Receipt",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Mode of Payment wise Fees Collection",
+   "link_count": 0,
+   "link_to": "Mode Of Payment-wise Fees Collection",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
@@ -237,7 +167,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-09-11 14:06:40.924385",
+ "modified": "2022-09-14 20:50:38.315299",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS GC",
