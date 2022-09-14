@@ -1,5 +1,5 @@
 {
- "add_total_row": 0,
+ "add_total_row": 1,
  "columns": [],
  "creation": "2022-09-11 10:58:17.990616",
  "disable_prepared_report": 0,
@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": "Main",
- "modified": "2022-09-11 10:58:17.990616",
+ "modified": "2022-09-13 11:15:51.431585",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "Student-wise Pending Fees",

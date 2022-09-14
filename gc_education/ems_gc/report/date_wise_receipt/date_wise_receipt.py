@@ -41,7 +41,7 @@ def get_data(filters):
 			tpe.reference_no , tpe.reference_date , tpe.cost_center , 
 			tsgs.group_roll_number , enr.program class, enr.student_batch_name division ,
 			enr.academic_year , enr.academic_term , enr.student_name ,
-			'from where ?' bank
+			tpe.bank_name bank
 		from `tabPayment Entry` tpe
 			inner join `tabProgram Enrollment` enr on enr.student = tpe.party
 			inner join `tabStudent Group` tsg on tsg.program = enr.program and tsg.academic_term = enr.academic_term 
@@ -68,4 +68,9 @@ def get_conditions(filters):
         conditions.append(" enr.program = %(program)s")
     if filters.get("batch"):
         conditions.append(" enr.student_batch_name = %(batch)s")
+    if filters.get("from_date"):
+        conditions.append("tpe.posting_date >= %(from_date)s")
+    if filters.get("to_date"):
+        conditions.append("tpe.posting_date <= %(to_date)s")
+
     return conditions and " and " + " and ".join(conditions) or ""

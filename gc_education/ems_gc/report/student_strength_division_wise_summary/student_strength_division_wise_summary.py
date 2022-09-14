@@ -66,4 +66,10 @@ def get_conditions(filters):
         conditions.append(" tpe.program = %(program)s")
     if filters.get("batch"):
         conditions.append(" tpe.student_batch_name = %(batch)s")
-    return conditions and "where" + " and ".join(conditions) or ""
+    if filters.get("student_status"):
+        conditions.append(
+            "ts.enabled = {}".format(
+                filters.get("student_status") == "Enabled" and 1 or 0
+            )
+        )
+    return conditions and " where " + " and ".join(conditions) or ""

@@ -4,5 +4,10 @@
 /* eslint-disable */
 frappe.query_reports["Student Records General Register"] = {
 	"filters": [
+		{
+			"label": "Student Status", "fieldname": "student_status",
+			"fieldtype": "Select", "options": "\nEnabled\nDisabled",
+			"default": "Enabled",
+		},
 	]
 };

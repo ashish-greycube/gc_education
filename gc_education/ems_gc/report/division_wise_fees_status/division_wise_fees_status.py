@@ -11,8 +11,15 @@ from operator import itemgetter
 
 
 def execute(filters=None):
-    columns = get_columns(filters)
-    data = get_data(filters)
+    _columns, data = get_data(filters)
+    data = data[:-1]
+
+    columns_to_total = [d["fieldname"] for d in _columns if isinstance(d, dict)] + [
+        "outstanding_amount",
+        "paid_amount",
+        "grand_total",
+    ]
+
     out = []
 
     for key, group in groupby(
@@ -20,14 +27,7 @@ def execute(filters=None):
         key=itemgetter("academic_year", "academic_term", "program", "division"),
     ):
         rows = list(group)
-        for col in [
-            "outstanding_amount",
-            "paid_amount",
-            "na_amount",
-            "additional_amount",
-            "exemption_amount",
-            "grand_total",
-        ]:
+        for col in columns_to_total:
             rows[0].update({col: sum([d.get(col, 0) for d in rows])})
 
         if filters.get("show_pending_student_count"):
@@ -37,6 +37,9 @@ def execute(filters=None):
 
         out.append(rows[0])
 
+    columns = get_columns(filters)
+    if not filters.get("show_pending_student_count"):
+        columns[4:4] = [d for d in _columns if isinstance(d, dict)]
     return columns, out
 
 
@@ -60,9 +63,6 @@ def get_columns(filters):
         Class,program,,,120
         Division,division,,120
         Total Amount,grand_total,Currency,,130
-        Additional Amount,additional_amount,Currency,,130
-        Exemption Amount,exemption_amount,Currency,,130
-        NA Amount,na_amount,Currency,,130
         Paid Amount,paid_amount,Currency,,130
         Pending Amount,outstanding_amount,Currency,,130
     """

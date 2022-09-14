@@ -3,6 +3,7 @@
 
 import frappe
 from gc_education.ems_gc.report import csv_to_columns
+from frappe.utils import cstr
 
 
 def execute(filters=None):
@@ -18,6 +19,7 @@ def get_columns():
         Class,class,,,150
         Division,division,,,150
         Class Teacher,class_teacher_cf,,,250
+        Employee ID,employee,Link,Employee,130
     """
     )
 
@@ -26,9 +28,11 @@ def get_data(filters):
     data = frappe.db.sql(
         """
 		select 
-			academic_year , academic_term ,
-			program class, batch division, class_teacher_cf
+			academic_year , academic_term , 
+			program class, batch division, class_teacher_cf , te.name employee
 		from `tabStudent Group` tsg 
+		inner join tabInstructor ti on ti.name = tsg.class_teacher_cf 
+		inner join tabEmployee te on te.name = ti.employee 
     {cond}
 		order by program , batch 
     """.format(
@@ -37,7 +41,13 @@ def get_data(filters):
         filters,
         as_dict=True,
     )
-
+    data.append(
+        {
+            # "academic_year": "Total",
+            "division": frappe.bold("Total "),
+            "class_teacher_cf": frappe.bold(cstr(len(data))),
+        }
+    )
     return data
 
 

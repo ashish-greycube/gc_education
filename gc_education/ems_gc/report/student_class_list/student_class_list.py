@@ -3,6 +3,7 @@
 
 import frappe
 from gc_education.ems_gc.report import csv_to_columns
+from frappe.utils import cstr
 
 
 def execute(filters=None):
@@ -19,9 +20,10 @@ def get_columns():
         Division,student_batch_name,,120
         GR No.,g_r_number,,,120
         Roll No.,group_roll_number,,Int,120
-        Status,status,,,120
+        Student Status,student_status,,,120
         Class Status,class_status,,,120
         Name,title,,,250
+        LC Number,leaving_certificate_number,,,130
     """
     )
 
@@ -34,7 +36,8 @@ def get_data(filters):
         tpe.program , tpe.student_batch_name , 
         ts.g_r_number , tsgs.group_roll_number , ts.title ,
         case tsgs.active when 1 then 'Active' else 'Inactive' end class_status ,
-        case tsg.disabled when 1 then 'Disabled' else 'Enabled' end status
+        case ts.enabled when 1 then 'Enabled' else 'Disabled' end student_status ,
+        ts.leaving_certificate_number 
     from tabStudent ts 
     inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
     inner join `tabStudent Group` tsg on tsg.program = tpe.program and tsg.academic_term = tpe.academic_term 
@@ -46,6 +49,13 @@ def get_data(filters):
         ),
         filters,
         as_dict=True,
+    )
+    data.append(
+        {
+            "bold": 1,
+            "class_status": frappe.bold("Total"),
+            "title": frappe.bold(cstr(len(data))),
+        }
     )
 
     return data
@@ -61,4 +71,10 @@ def get_conditions(filters):
         conditions.append(" tpe.program = %(program)s")
     if filters.get("batch"):
         conditions.append(" tpe.student_batch_name = %(batch)s")
-    return conditions and "where" + " and ".join(conditions) or ""
+    if filters.get("student_status"):
+        conditions.append(
+            "ts.enabled = {}".format(
+                filters.get("student_status") == "Enabled" and 1 or 0
+            )
+        )
+    return conditions and " where " + " and ".join(conditions) or ""

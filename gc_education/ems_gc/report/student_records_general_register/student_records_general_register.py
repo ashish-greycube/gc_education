@@ -60,17 +60,18 @@ def get_data(filters):
 			ts.date_of_leaving , ts.leaving_certificate_number ,
 			fn.program admission_class , fn2.program leaving_class 
 			from tabStudent ts 
-			left outer join tabGuardian pa on pa.student_id = ts.name and designation = 'Father'
-			left outer join tabGuardian ma on ma.student_id = ts.name and designation = 'Mother'
+			left outer join tabGuardian pa on pa.student_id = ts.name and pa.designation = 'Father'
+			left outer join tabGuardian ma on ma.student_id = ts.name and pa.designation = 'Mother'
 			inner JOIN fn on fn.student = ts.name
 			left outer join fn2 on fn2.student = ts.name and ts.date_of_leaving is not null
     {cond}
 		order by ts.name
     """.format(
-            cond=""
+            cond=get_conditions(filters)
         ),
         filters,
         as_dict=True,
+        debug=True,
     )
 
     return data
@@ -86,4 +87,10 @@ def get_conditions(filters):
         conditions.append(" tpe.program = %(program)s")
     if filters.get("batch"):
         conditions.append(" tpe.batch = %(batch)s")
-    return conditions and "where" + " and ".join(conditions) or ""
+    if filters.get("student_status"):
+        conditions.append(
+            "ts.enabled = {}".format(
+                filters.get("student_status") == "Enabled" and 1 or 0
+            )
+        )
+    return conditions and " where " + " and ".join(conditions) or ""

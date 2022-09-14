@@ -40,6 +40,8 @@ def get_data(filters):
         index=[
             "academic_year",
             "academic_term",
+            "company",
+            "branch",
             "class",
             "division",
         ],
@@ -76,6 +78,8 @@ def get_data(filters):
 def get_columns():
     return csv_to_columns(
         """
+    Organization,company,,,245
+    Branch,branch,,,145
     Academic Year,academic_year,,,160
     Academic Term,academic_term,,,160
     Class,class,,,145
@@ -94,4 +98,9 @@ def get_conditions(filters):
         conditions.append(" enr.program = %(program)s")
     if filters.get("batch"):
         conditions.append(" enr.student_batch_name = %(batch)s")
+    if filters.get("from_date"):
+        conditions.append("tpe.posting_date >= %(from_date)s")
+    if filters.get("to_date"):
+        conditions.append("tpe.posting_date <= %(to_date)s")
+
     return conditions and " where " + " and ".join(conditions) or ""

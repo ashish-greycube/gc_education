@@ -10,7 +10,8 @@ from gc_education.ems_gc.report import csv_to_columns
 
 def execute(filters=None):
     columns = get_columns()
-    data = [d for d in get_data(filters) if d.get("outstanding_amount", 0) > 0]
+    _columns, data = get_data(filters)
+    data = [d for d in data if d.get("outstanding_amount", 0) > 0]
     return columns, data
 
 
@@ -21,7 +22,8 @@ def get_columns():
         Academic Term,academic_term,,,150
         Class,program,,,120
         Division,division,,120
-        Roll No,group_roll_number,Int,,120
+        G R No,g_r_number,,,90
+        Roll No,group_roll_number,,,90
 		ID No.,student,Link,Student,190
         Name,student_name,,,250
 		Contact No.,student_mobile_number,,,150
