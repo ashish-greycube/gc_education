@@ -1,33 +1,33 @@
 {
- "add_total_row": 0,
- "columns": [],
- "creation": "2022-09-11 11:03:41.744942",
- "disable_prepared_report": 0,
- "disabled": 0,
- "docstatus": 0,
- "doctype": "Report",
- "filters": [],
- "idx": 0,
- "is_standard": "Yes",
- "letter_head": "Main",
- "modified": "2022-09-15 19:36:49.031127",
- "modified_by": "Administrator",
- "module": "EMS GC",
- "name": "Batch-wise Fees Collection",
- "owner": "Administrator",
- "prepared_report": 0,
- "ref_doctype": "EMS GC Settings",
- "report_name": "Batch-wise Fees Collection",
- "report_type": "Script Report",
- "roles": [
-  {
-   "role": "Academics User"
-  },
-  {
-   "role": "Accounts User"
-  },
-  {
-   "role": "Accounts Manager"
-  }
- ]
+    "add_total_row": 0,
+    "columns": [],
+    "creation": "2022-09-11 11:03:41.744942",
+    "disable_prepared_report": 0,
+    "disabled": 0,
+    "docstatus": 0,
+    "doctype": "Report",
+    "filters": [],
+    "idx": 0,
+    "is_standard": "Yes",
+    "letter_head": "Main",
+    "modified": "2022-09-15 19:40:49.031127",
+    "modified_by": "Administrator",
+    "module": "EMS GC",
+    "name": "Batch-wise Fees Collection",
+    "owner": "Administrator",
+    "prepared_report": 0,
+    "ref_doctype": "Student Certificate",
+    "report_name": "Batch-wise Fees Collection",
+    "report_type": "Script Report",
+    "roles": [
+        {
+            "role": "Academics User"
+        },
+        {
+            "role": "Accounts User"
+        },
+        {
+            "role": "Accounts Manager"
+        }
+    ]
 }

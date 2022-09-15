@@ -1,53 +1,63 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2022-09-15 19:34:22.534234",
+ "creation": "2022-09-15 19:47:50.759042",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "whatsapp_number"
+  "student"
  ],
  "fields": [
   {
-   "fieldname": "whatsapp_number",
-   "fieldtype": "Data",
-   "label": "Whatsapp Number"
+   "fieldname": "student",
+   "fieldtype": "Link",
+   "label": "Student",
+   "options": "Student"
   }
  ],
  "index_web_pages_for_search": 1,
- "issingle": 1,
  "links": [],
- "modified": "2022-09-15 19:46:09.818823",
+ "modified": "2022-09-15 19:54:41.347152",
  "modified_by": "Administrator",
  "module": "EMS GC",
- "name": "EMS GC Settings",
+ "name": "Student Certificate",
  "owner": "Administrator",
  "permissions": [
   {
    "create": 1,
    "delete": 1,
    "email": 1,
+   "export": 1,
    "print": 1,
    "read": 1,
+   "report": 1,
    "role": "System Manager",
    "share": 1,
    "write": 1
   },
   {
-   "delete": 1,
+   "create": 1,
    "email": 1,
+   "export": 1,
    "print": 1,
    "read": 1,
+   "report": 1,
    "role": "Academics User",
-   "share": 1
+   "share": 1,
+   "write": 1
   },
   {
+   "create": 1,
+   "delete": 1,
    "email": 1,
+   "export": 1,
    "print": 1,
    "read": 1,
+   "report": 1,
    "role": "Accounts User",
-   "share": 1
+   "share": 1,
+   "write": 1
   }
  ],
  "sort_field": "modified",
