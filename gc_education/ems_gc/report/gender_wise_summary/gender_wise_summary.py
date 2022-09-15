@@ -75,7 +75,14 @@ def get_conditions(filters):
     if filters.get("academic_term"):
         conditions.append(" tpe.academic_term = %(academic_term)s")
     if filters.get("batch"):
-        conditions.append(" tpe.student_batch_name = %(batch)s")
+        lst = filters.batch
+        # to prevent SQL Injection
+        batches = frappe.get_list("Student Batch Name", pluck="name")
+        conditions.append(
+            "tpe.student_batch_name in ({})".format(
+                ",".join(["'%s'" % d for d in lst if d in batches])
+            )
+        )
     if filters.get("student_status") and not filters.student_status == "All":
         conditions.append(
             "ts.enabled = {}".format(

@@ -8,13 +8,20 @@ frappe.query_reports["Student Class List"] = {
 		{ "label": "Academic Term", "fieldname": "academic_term", "fieldtype": "Link", "options": "Academic Term", },
 		{
 			"fieldname": "program",
-			"label": __("Class List"),
+			"label": __("Class"),
 			"fieldtype": "MultiSelectList",
 			get_data: function (txt) {
 				return frappe.db.get_link_options('Program', txt);
 			}
 		},
-		{ "label": "Division", "fieldname": "batch", "fieldtype": "Link", "options": "Student Batch Name", },
+		{
+			"fieldname": "batch",
+			"label": __("Division"),
+			"fieldtype": "MultiSelectList",
+			get_data: function (txt) {
+				return frappe.db.get_link_options('Student Batch Name', txt);
+			}
+		},
 		{
 			"fieldname": "as_on_date",
 			"label": __("As on Date"),
@@ -49,7 +56,6 @@ frappe.query_reports["Student Class List"] = {
 // 		method: "frappe.email.get_contact_list",
 // 		args: { "txt": "ram" },
 // 		callback: (r) => {
-// 			debugger
 // 			console.log(r.message);
 // 			class_filter.set_data(r.message);
 // 		},

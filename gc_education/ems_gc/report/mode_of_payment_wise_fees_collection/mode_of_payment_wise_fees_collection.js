@@ -20,10 +20,6 @@ frappe.query_reports["Mode Of Payment-wise Fees Collection"] = {
 			"default": frappe.datetime.get_today(),
 			"reqd": 1
 		},
-
-		// { "label": "Class", "fieldname": "program", "fieldtype": "Link", "options": "Program", },
-		// { "label": "Division", "fieldname": "batch", "fieldtype": "Link", "options": "Student Batch Name", },
-
 	],
 	"formatter": function (value, row, column, data, default_formatter) {
 		value = default_formatter(value, row, column, data);

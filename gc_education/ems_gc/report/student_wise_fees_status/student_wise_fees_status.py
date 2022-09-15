@@ -116,7 +116,14 @@ def get_conditions(filters):
     if filters.get("academic_term"):
         conditions.append(" tfs.academic_term = %(academic_term)s")
     if filters.get("batch"):
-        conditions.append(" tsg.batch = %(batch)s")
+        lst = filters.batch
+        # to prevent SQL Injection
+        batches = frappe.get_list("Student Batch Name", pluck="name")
+        conditions.append(
+            "tsg.batch in ({})".format(
+                ",".join(["'%s'" % d for d in lst if d in batches])
+            )
+        )
     if filters.get("from_date"):
         conditions.append("tf.due_date >= %(from_date)s")
     if filters.get("to_date"):

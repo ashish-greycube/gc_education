@@ -8,13 +8,20 @@ frappe.query_reports["Student Strength Division-Wise Summary"] = {
 		{ "label": "Academic Term", "fieldname": "academic_term", "fieldtype": "Link", "options": "Academic Term", },
 		{
 			"fieldname": "program",
-			"label": __("Class List"),
+			"label": __("Class"),
 			"fieldtype": "MultiSelectList",
 			get_data: function (txt) {
 				return frappe.db.get_link_options('Program', txt);
 			}
 		},
-		{ "label": "Division", "fieldname": "batch", "fieldtype": "Link", "options": "Student Batch Name", },
+		{
+			"fieldname": "batch",
+			"label": __("Division"),
+			"fieldtype": "MultiSelectList",
+			get_data: function (txt) {
+				return frappe.db.get_link_options('Student Batch Name', txt);
+			}
+		},
 		{
 			"label": "Student Status", "fieldname": "student_status",
 			"fieldtype": "Select", "options": "All\nEnabled\nDisabled",

@@ -42,7 +42,7 @@ def get_data(filters):
 			(
 				select 
 					ROW_NUMBER() over(PARTITION BY student order by enrollment_date) rn, 
-					program , student , enrollment_date 
+					program , student , enrollment_date
 				from `tabProgram Enrollment` tpe
 			),
 			fn2 as
@@ -63,15 +63,14 @@ def get_data(filters):
 			left outer join tabGuardian pa on pa.student_id = ts.name and pa.designation = 'Father'
 			left outer join tabGuardian ma on ma.student_id = ts.name and pa.designation = 'Mother'
 			inner JOIN fn on fn.student = ts.name
-			left outer join fn2 on fn2.student = ts.name and ts.date_of_leaving is not null
-    {cond}
+			left outer join fn2 on fn2.student = ts.name and ts.date_of_leaving is not null and fn2.rn = 1 
+            where fn.rn = 1 {cond}
 		order by ts.name
     """.format(
             cond=get_conditions(filters)
         ),
         filters,
         as_dict=True,
-        debug=True,
     )
 
     return data
@@ -79,14 +78,7 @@ def get_data(filters):
 
 def get_conditions(filters):
     conditions = []
-    if filters.get("academic_year"):
-        conditions.append(" tpe.academic_year = %(academic_year)s")
-    if filters.get("academic_term"):
-        conditions.append(" tpe.academic_term = %(academic_term)s")
-    if filters.get("program"):
-        conditions.append(" tpe.program = %(program)s")
-    if filters.get("batch"):
-        conditions.append(" tpe.batch = %(batch)s")
+
     if filters.get("as_on_date"):
         conditions.append(
             "(ts.date_of_leaving is null or ts.date_of_leaving >= %(as_on_date)s)"
@@ -98,4 +90,4 @@ def get_conditions(filters):
             )
         )
 
-    return conditions and " where " + " and ".join(conditions) or ""
+    return conditions and " and " + " and ".join(conditions) or ""
