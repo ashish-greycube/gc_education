@@ -11,28 +11,6 @@ def execute(filters=None):
     return columns, data
 
 
-def get_columns():
-
-    return csv_to_columns(
-        """
-        Academic Year,academic_year,,,150
-        Academic Term,academic_term,,,150
-        Class,program,,,120
-        Division,division,,120
-        G R No,g_r_number,,,95
-		ID No.,student,Link,Student,190
-        Name,student_name,,,250
-        Due Date,due_date,Date,,120
-		Total Amount,grand_total,Currency,,130
-		Paid Amount,paid_amount,Currency,,130
-		Pending Amount,outstanding_amount,Currency,,130
-    """
-    )
-    # Additional Amount,additional_amount,Currency,,130
-    # Exemption Amount,exemption_amount,Currency,,130
-    # NA Amount,na_amount,Currency,,130
-
-
 def get_data(filters):
     data = frappe.db.sql(
         """
@@ -75,6 +53,7 @@ def get_data(filters):
             "student",
             "student_name",
             "due_date",
+            "description",
             "grand_total",
             "paid_amount",
             "outstanding_amount",
@@ -98,7 +77,7 @@ def get_data(filters):
         for col in df1.columns.to_list()
         if not col == "Total"
     ]
-    columns[8:8] = pivot_cols
+    columns[9:9] = pivot_cols
     # columns[-1]["label"] = "Total"
 
     out = []
@@ -138,3 +117,26 @@ def get_conditions(filters):
             )
         )
     return conditions and " where " + " and ".join(conditions) or ""
+
+
+def get_columns():
+
+    return csv_to_columns(
+        """
+        Academic Year,academic_year,,,150
+        Academic Term,academic_term,,,150
+        Class,program,,,120
+        Division,division,,120
+        G R No,g_r_number,,,95
+		ID No.,student,Link,Student,190
+        Name,student_name,,,250
+        Quarter,description,,,130
+        Due Date,due_date,Date,,120
+		Total Amount,grand_total,Currency,,130
+		Paid Amount,paid_amount,Currency,,130
+		Pending Amount,outstanding_amount,Currency,,130
+    """
+    )
+    # Additional Amount,additional_amount,Currency,,130
+    # Exemption Amount,exemption_amount,Currency,,130
+    # NA Amount,na_amount,Currency,,130

@@ -27,6 +27,7 @@ def get_columns():
 		ID No.,student,Link,Student,190
         Name,student_name,,,250
 		Contact No.,student_mobile_number,,,150
+        Quarter,description,,,130
 		Pending Amount,outstanding_amount,Currency,,130
 		Reference remark,reference_remark,,,300
     """

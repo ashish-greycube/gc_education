@@ -24,7 +24,9 @@ def execute(filters=None):
 
     for key, group in groupby(
         data,
-        key=itemgetter("academic_year", "academic_term", "program", "division"),
+        key=itemgetter(
+            "academic_year", "academic_term", "program", "division", "description"
+        ),
     ):
         rows = list(group)
         for col in columns_to_total:
@@ -39,7 +41,7 @@ def execute(filters=None):
 
     columns = get_columns(filters)
     if not filters.get("show_pending_student_count"):
-        columns[4:4] = [d for d in _columns if isinstance(d, dict)]
+        columns[5:5] = [d for d in _columns if isinstance(d, dict)]
     return columns, out
 
 
@@ -51,6 +53,7 @@ def get_columns(filters):
             Academic Term,academic_term,,,150
             Class,program,,,120
             Division,division,,120
+            Quarter,description,,,130
             Student Count,student_count,Int,,130
             Pending Amount,outstanding_amount,Currency,,130
         """
@@ -62,6 +65,7 @@ def get_columns(filters):
         Academic Term,academic_term,,,150
         Class,program,,,120
         Division,division,,120
+        Quarter,description,,,130
         Total Amount,grand_total,Currency,,130
         Paid Amount,paid_amount,Currency,,130
         Pending Amount,outstanding_amount,Currency,,130
