@@ -44,6 +44,7 @@ def get_data(filters):
 			tpe.bank_name bank
 		from `tabPayment Entry` tpe
 			inner join `tabProgram Enrollment` enr on enr.student = tpe.party
+            inner join `tabProgram` tpr on tpr.name = enr.program
 			inner join `tabStudent Group` tsg on tsg.program = enr.program and tsg.academic_term = enr.academic_term 
 			inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = enr.student
 		where tpe.payment_type = 'Receive' and tpe.docstatus = 1 {cond} 
@@ -84,6 +85,14 @@ def get_conditions(filters):
         conditions.append(
             "enr.program in ({})".format(
                 ",".join(["'%s'" % d for d in lst if d in programs])
+            )
+        )
+    if filters.get("department"):
+        # to prevent SQL Injection
+        names = frappe.get_list("Department", pluck="name")
+        conditions.append(
+            "tpr.department in ({})".format(
+                ",".join(["'%s'" % d for d in filters.department if d in names])
             )
         )
     return conditions and " and " + " and ".join(conditions) or ""

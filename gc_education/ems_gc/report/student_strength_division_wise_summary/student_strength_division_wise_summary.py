@@ -38,6 +38,7 @@ def get_data(filters):
         case tsg.disabled when 1 then 'Disabled' else 'Enabled' end status
 		from tabStudent ts 
 		inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
+        inner join `tabProgram` tpr on tpr.name = tpe.program
 		inner join `tabStudent Group` tsg on tsg.program = tpe.program 
 			and tsg.academic_term = tpe.academic_term 
 		inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name 
@@ -79,5 +80,12 @@ def get_conditions(filters):
                 ",".join(["'%s'" % d for d in lst if d in programs])
             )
         )
-
+    if filters.get("department"):
+        # to prevent SQL Injection
+        names = frappe.get_list("Department", pluck="name")
+        conditions.append(
+            "tpr.department in ({})".format(
+                ",".join(["'%s'" % d for d in filters.department if d in names])
+            )
+        )
     return conditions and " where " + " and ".join(conditions) or ""

@@ -19,6 +19,7 @@ def get_data(filters):
          tpe.academic_year , tpe.academic_term
     from `tabProgram Enrollment` tpe	
     inner join tabStudent ts on ts.name = tpe.student
+    inner join `tabProgram` tpr on tpr.name = tpe.program
     {cond}
     """.format(
             cond=get_conditions(filters)
@@ -100,7 +101,14 @@ def get_conditions(filters):
                 ",".join(["'%s'" % d for d in lst if d in programs])
             )
         )
-
+    if filters.get("department"):
+        # to prevent SQL Injection
+        names = frappe.get_list("Department", pluck="name")
+        conditions.append(
+            "tpr.department in ({})".format(
+                ",".join(["'%s'" % d for d in filters.department if d in names])
+            )
+        )
     return conditions and " where " + " and ".join(conditions) or ""
 
 

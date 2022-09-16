@@ -33,6 +33,7 @@ def get_data(filters):
 		from `tabStudent Group` tsg 
 		inner join tabInstructor ti on ti.name = tsg.class_teacher_cf 
 		inner join tabEmployee te on te.name = ti.employee 
+        inner join `tabProgram` tpr on tpr.name = tsg.program
     {cond}
 		order by program , batch 
     """.format(
@@ -73,6 +74,14 @@ def get_conditions(filters):
         conditions.append(
             "tsg.program in ({})".format(
                 ",".join(["'%s'" % d for d in lst if d in programs])
+            )
+        )
+    if filters.get("department"):
+        # to prevent SQL Injection
+        names = frappe.get_list("Department", pluck="name")
+        conditions.append(
+            "tpr.department in ({})".format(
+                ",".join(["'%s'" % d for d in filters.department if d in names])
             )
         )
     return conditions and " where " + " and ".join(conditions) or ""

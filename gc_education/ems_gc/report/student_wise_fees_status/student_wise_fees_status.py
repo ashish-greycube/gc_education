@@ -23,6 +23,7 @@ def get_data(filters):
         tf.posting_date , tf.due_date ,
         tfc.fees_category , tfc.amount , tfc.description 
 	from `tabFee Schedule` tfs 
+    inner join `tabProgram` tpr on tpr.name = tfs.program
 	inner join `tabFee Schedule Student Group` tfssg on tfssg.parent = tfs.name
 	inner join `tabStudent Group` tsg on tsg.name = tfssg.student_group 
 	inner JOIN tabFees tf on tf.fee_schedule = tfs.name
@@ -114,6 +115,14 @@ def get_conditions(filters):
         conditions.append(
             "tfs.program in ({})".format(
                 ",".join(["'%s'" % d for d in lst if d in programs])
+            )
+        )
+    if filters.get("department"):
+        # to prevent SQL Injection
+        names = frappe.get_list("Department", pluck="name")
+        conditions.append(
+            "tpr.department in ({})".format(
+                ",".join(["'%s'" % d for d in filters.department if d in names])
             )
         )
     return conditions and " where " + " and ".join(conditions) or ""

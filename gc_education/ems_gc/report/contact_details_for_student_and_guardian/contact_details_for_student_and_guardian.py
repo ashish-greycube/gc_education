@@ -24,7 +24,7 @@ with fn as
     inner join tabGuardian tg on tg.name = tsg.guardian 
 )
     select 
-        tpe.academic_year , tpe.academic_term , 
+        tpe.academic_year , tpe.academic_term , tpr.department ,
         tpe.program , tpe.student_batch_name , 
         ts.g_r_number , tsgs.group_roll_number , tpe.student_name ,
         ts.student_mobile_number student_mobile_no , ts.student_email_id ,
@@ -43,6 +43,7 @@ with fn as
         gr2.alternate_number guardian2_alternate_no
     from tabStudent ts 
     inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
+    inner join `tabProgram` tpr on tpr.name = tpe.program
     inner join `tabStudent Group` tsg on tsg.program = tpe.program and tsg.academic_term = tpe.academic_term 
     inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = ts.name 
     left outer join fn on fn.parent = ts.name and fn.rn = 1
@@ -89,7 +90,14 @@ def get_conditions(filters):
                 ",".join(["'%s'" % d for d in lst if d in programs])
             )
         )
-
+    if filters.get("department"):
+        # to prevent SQL Injection
+        names = frappe.get_list("Department", pluck="name")
+        conditions.append(
+            "tpr.department in ({})".format(
+                ",".join(["'%s'" % d for d in filters.department if d in names])
+            )
+        )
     return conditions and " where " + " and ".join(conditions) or ""
 
 
@@ -98,6 +106,7 @@ def get_columns():
         """
         Academic Year,academic_year,,,150
         Academic Term,academic_term,,,150
+        Department,department,,,120
         Class,program,,,120
         Division,student_batch_name,,,120
         GR No.,g_r_number,,,90
