@@ -1,6 +1,7 @@
 # Copyright (c) 2022, Greycube and contributors
 # For license information, please see license.txt
 
+
 import frappe
 from gc_education.ems_gc.report import csv_to_columns
 from frappe.utils import cstr
@@ -12,37 +13,47 @@ def execute(filters=None):
 
 
 def get_data(filters):
-
     data = frappe.db.sql(
         """
+with fn as
+(
+    select ROW_NUMBER() OVER(PARTITION BY parent ORDER BY tsg.idx) rn, 
+    tsg.parent , tsg.guardian , tsg.guardian_name , tsg.relation ,
+    tg.mobile_number , tg.email_address , tg.alternate_number
+    from `tabStudent Guardian` tsg
+    inner join tabGuardian tg on tg.name = tsg.guardian 
+)
     select 
         tpe.academic_year , tpe.academic_term , 
         tpe.program , tpe.student_batch_name , 
-        ts.g_r_number , tsgs.group_roll_number , ts.title ,
-        case tsgs.active when 1 then 'Active' else 'Inactive' end class_status ,
-        case 
-            when ts.enabled = 1 then 'Enabled' 
-            when ts.date_of_leaving is not null and ts.date_of_leaving > %(as_on_date)s then 'Enabled'
-            else 'Disabled' end student_status ,
-        ts.leaving_certificate_number 
+        ts.g_r_number , tsgs.group_roll_number , tpe.student_name ,
+        ts.student_mobile_number student_mobile_no , ts.student_email_id ,
+        CONCAT_WS(', ', address_line_1, address_line_2, city, state ) address ,
+        if(tsgs.active,'Active','Inactive') student_group_status ,
+        if(ts.enabled,'Enabled','Disabled') student_status ,
+        fn.guardian_name guardian1_name,
+        fn.relation relation_with_guardian1, 
+        fn.mobile_number guardian1_mobile_no, 
+        fn.email_address guardian1_email_id, 
+        fn.alternate_number guardian1_alternate_no,
+        gr2.guardian_name guardian2_name,
+        gr2.relation relation_with_guardian2, 
+        gr2.mobile_number guardian2_mobile_no, 
+        gr2.email_address guardian2_email_id, 
+        gr2.alternate_number guardian2_alternate_no
     from tabStudent ts 
     inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
     inner join `tabStudent Group` tsg on tsg.program = tpe.program and tsg.academic_term = tpe.academic_term 
     inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = ts.name 
-    {cond}
+    left outer join fn on fn.parent = ts.name and fn.rn = 1
+    left outer join fn gr2 on gr2.parent = ts.name and gr2.rn = 2	
+    {conditions}
     order by tpe.program , tpe.student_batch_name , tsgs.group_roll_number , ts.g_r_number 
+        limit 20
     """.format(
-            cond=get_conditions(filters)
+            conditions=get_conditions(filters)
         ),
-        filters,
         as_dict=True,
-    )
-    data.append(
-        {
-            "bold": 1,
-            "class_status": frappe.bold("Total"),
-            "title": frappe.bold(cstr(len(data))),
-        }
     )
 
     return data
@@ -87,13 +98,25 @@ def get_columns():
         """
         Academic Year,academic_year,,,150
         Academic Term,academic_term,,,150
-        Class,program,,,190
-        Division,student_batch_name,,,190
-        GR No.,g_r_number,,,120
-        Roll No.,group_roll_number,,Int,120
-        Name,title,,,290
+        Class,program,,,120
+        Division,student_batch_name,,,120
+        GR No.,g_r_number,,,90
+        Roll No.,group_roll_number,,Int,90
+        Name,student_name,,,290
         Student Status,student_status,,,120
-        Class Status,class_status,,,120
-        LC Number,leaving_certificate_number,,,130
+        Class Status,student_group_status,,,120
+        Student Mobile No,student_mobile_no,,,120 
+        Student Email Id,student_email_id,,,120
+        Student Address,address,,,120
+        Guardian1 Name,guardian1_name,,,120
+        Relation with Guardian1,relation_with_guardian1,,,120
+        Guardian1 Mobile No,guardian1_mobile_no,,,120
+        Guardian1 Email Id,guardian1_email_id,,,120
+        Guardian1 Alternate No,guardian1_alternate_no,,,120
+        Guardian2 Name,guardian2_name,,,120
+        Relation with Guardian2,relation_with_guardian2,,,120
+        Guardian2 Mobile No,guardian2_mobile_no, ,,120
+        Guardian2 Email Id,guardian2_email_id,,,120
+        Guardian2 Alternate No,guardian2_alternate_no,,,120
     """
     )
