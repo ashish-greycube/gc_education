@@ -19,6 +19,15 @@ def after_migrate(**args):
                 allow_on_submit=1,
             ),
         ],
+        "Branch": [
+            dict(
+                fieldtype="Link",
+                options="Payment Gateway Account",
+                fieldname="payment_gateway_account_cf",
+                label="Payment Gateway Account",
+                insert_after="branch",
+            ),
+        ],
     }
     create_custom_fields(custom_fields)
     frappe.db.commit()  # to avoid implicit-commit errors

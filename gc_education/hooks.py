@@ -140,9 +140,10 @@ after_migrate = "gc_education.install.after_migrate"
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "gc_education.event.get_events"
-# }
+override_whitelisted_methods = {
+    # "frappe.desk.doctype.event.event.get_events": "gc_education.event.get_events"
+    "erpnext.accounts.doctype.payment_request.payment_request.make_payment_request": "gc_education.overrides.override_whitelisted.make_payment_request"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
