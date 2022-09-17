@@ -8,7 +8,7 @@ $(document).ready(function(){
 			"description": "{{ description }}",
 			"subscription_id": "{{ subscription_id }}",
 			"handler": function (response){
-				razorpay.make_payment_log(response, options, "{{ reference_doctype }}", "{{ reference_docname }}", "{{ token }}");
+				razorpay2.make_payment_log(response, options, "{{ reference_doctype }}", "{{ reference_docname }}", "{{ token }}");
 			},
 			"prefill": {
 				"name": "{{ payer_name }}",
