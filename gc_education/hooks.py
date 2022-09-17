@@ -95,9 +95,9 @@ after_migrate = "gc_education.install.after_migrate"
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+    "Payment Request": "gc_education.overrides.payment_request.GCPaymentRequest"
+}
 
 # Document Events
 # ---------------
