@@ -78,6 +78,6 @@ def make_payment(
         }
     )
 
-    data = frappe.get_doc("Razorpay Settings").create_request(data)
+    data = frappe.get_doc("Razorpay2 Settings").create_request(data)
     frappe.db.commit()
     return data
