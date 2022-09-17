@@ -5,3 +5,5 @@
 tags
 gc_education/docs/current
 node_modules/
+dist/
+__pycache__/
