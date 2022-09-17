@@ -47,10 +47,16 @@ class GCPaymentRequest(PaymentRequest):
         else:
             party_amount = self.grand_total
 
+        payment_type = (
+            "Receive" if self.reference_doctype == "Fees" and party_amount > 0 else None
+        )
+        party_type = "Student" if self.reference_doctype == "Fees" else None
+
         payment_entry = get_payment_entry(
             self.reference_doctype,
             self.reference_name,
-            party_type=self.reference_doctype == "Fees" and "Student" or None,
+            party_type=party_type,
+            payment_type=payment_type,
             party_amount=party_amount,
             bank_account=self.payment_account,
             bank_amount=bank_amount,
