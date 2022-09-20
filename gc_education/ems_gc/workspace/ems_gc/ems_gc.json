@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"card\",\"data\":{\"card_name\":\"Student Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Fees Reports\",\"col\":4}}]",
+ "content": "[{\"type\":\"card\",\"data\":{\"card_name\":\"Student Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Fees Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Payment Gateway\",\"col\":4}}]",
  "creation": "2022-09-11 10:23:58.070038",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -175,9 +175,47 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Payment Gateway",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Razorpay Settings",
+   "link_count": 0,
+   "link_to": "Razorpay Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Razorpay2 Settings",
+   "link_count": 0,
+   "link_to": "Razorpay2 Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Payment Gateway Account",
+   "link_count": 0,
+   "link_to": "Payment Gateway Account",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-09-16 17:12:57.955317",
+ "modified": "2022-09-20 20:30:49.435116",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS GC",
@@ -186,7 +224,7 @@
  "public": 1,
  "quick_lists": [],
  "roles": [],
- "sequence_id": 39.0,
+ "sequence_id": 36.0,
  "shortcuts": [],
  "title": "EMS GC"
 }

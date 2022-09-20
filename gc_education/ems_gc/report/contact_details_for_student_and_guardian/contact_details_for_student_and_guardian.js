@@ -46,7 +46,10 @@ frappe.query_reports["Contact Details for Student and Guardian"] = {
 			label: "Copy Column",
 			fieldname: "column_to_copy",
 			fieldtype: "Select",
-			options: "\n" + copy_columns.join("\n")
+			options: "\n" + copy_columns.join("\n"),
+			on_change: function () {
+				// do nothing
+			}
 		},
 		{
 			"label": "Student Status", "fieldname": "student_status",
