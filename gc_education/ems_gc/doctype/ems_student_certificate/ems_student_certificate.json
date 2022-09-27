@@ -7,11 +7,43 @@
  "engine": "InnoDB",
  "field_order": [
   "student",
-  "academic_year",
-  "cb_1",
   "certificate_type",
+  "student_name",
+  "mothers_name",
+  "fathers_name",
+  "date_of_birth",
+  "proof_of_date_of_birth",
+  "nationality",
+  "category",
+  "program",
+  "last_enrolled_class",
+  "last_examination_with_result",
+  "if_student_failed",
+  "course_enrollment",
+  "new_enrollment_class",
+  "total_attendance_days_in_a_year",
+  "student_attendance_days_in_a_year",
+  "cb_1",
+  "last_fees_payment_date",
+  "exempted_fees_if_any",
+  "ncc_details",
+  "school_category",
+  "activities_in_student_take_part",
+  "application_receiving_date",
+  "date_of_leaving",
   "certificate_date",
-  "academic_term"
+  "any_other_remarks",
+  "gr_number",
+  "student_group",
+  "academic_year",
+  "admission_date",
+  "caste",
+  "birth_place",
+  "academic_term",
+  "state",
+  "student_board",
+  "seat_number",
+  "gender"
  ],
  "fields": [
   {
@@ -60,11 +92,193 @@
    "options": "\nCharacter Certificate\nFirst Attempt Certificate\nBonafide Certificate\nTransfer Certificate",
    "reqd": 1,
    "set_only_once": 1
+  },
+  {
+   "default": "AISSE",
+   "depends_on": "eval:doc.certificate_type == 'First Attempt Certificate'",
+   "fieldname": "student_board",
+   "fieldtype": "Select",
+   "label": "Student Board",
+   "options": "AISSCE\nAISSE"
+  },
+  {
+   "fetch_from": "student.title",
+   "fieldname": "student_name",
+   "fieldtype": "Read Only",
+   "label": "Student Name"
+  },
+  {
+   "fetch_from": "student.g_r_number",
+   "fieldname": "gr_number",
+   "fieldtype": "Data",
+   "label": "GR Number"
+  },
+  {
+   "fieldname": "student_group",
+   "fieldtype": "Link",
+   "label": "Student Group",
+   "options": "Student Group"
+  },
+  {
+   "fetch_from": "student.joining_date",
+   "fieldname": "admission_date",
+   "fieldtype": "Data",
+   "label": "Admission Date"
+  },
+  {
+   "fetch_from": "student.caste",
+   "fieldname": "caste",
+   "fieldtype": "Data",
+   "label": "Caste"
+  },
+  {
+   "fetch_from": "student.pincode",
+   "fieldname": "program",
+   "fieldtype": "Link",
+   "label": "Program",
+   "options": "Program"
+  },
+  {
+   "fetch_from": "student.date_of_birth",
+   "fieldname": "date_of_birth",
+   "fieldtype": "Date",
+   "label": "Date of Birth"
+  },
+  {
+   "fetch_from": "student.birth_place",
+   "fieldname": "birth_place",
+   "fieldtype": "Data",
+   "label": "Birth Place"
+  },
+  {
+   "fetch_from": "student.birth_state",
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "Birth State"
+  },
+  {
+   "fieldname": "seat_number",
+   "fieldtype": "Data",
+   "label": "Seat Number"
+  },
+  {
+   "fetch_from": "student.nationality",
+   "fieldname": "nationality",
+   "fieldtype": "Data",
+   "label": "Nationality"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Data",
+   "label": "Category"
+  },
+  {
+   "fieldname": "last_enrolled_class",
+   "fieldtype": "Data",
+   "label": "Last enrolled Class"
+  },
+  {
+   "fieldname": "last_examination_with_result",
+   "fieldtype": "Link",
+   "label": "Last Examination with result",
+   "options": "Assessment Result"
+  },
+  {
+   "fieldname": "if_student_failed",
+   "fieldtype": "Select",
+   "label": "If Student failed",
+   "options": "Yes\nNo"
+  },
+  {
+   "fieldname": "course_enrollment",
+   "fieldtype": "Data",
+   "label": "Course Enrollment"
+  },
+  {
+   "fieldname": "new_enrollment_class",
+   "fieldtype": "Link",
+   "label": "New Enrollment Class",
+   "options": "Program"
+  },
+  {
+   "fieldname": "total_attendance_days_in_a_year",
+   "fieldtype": "Data",
+   "label": "Total Attendance Days in a year"
+  },
+  {
+   "fieldname": "student_attendance_days_in_a_year",
+   "fieldtype": "Data",
+   "label": "Student Attendance Days in a year"
+  },
+  {
+   "fieldname": "last_fees_payment_date",
+   "fieldtype": "Data",
+   "label": "Last fees Payment Date"
+  },
+  {
+   "fieldname": "exempted_fees_if_any",
+   "fieldtype": "Data",
+   "label": "Exempted Fees if any"
+  },
+  {
+   "fieldname": "ncc_details",
+   "fieldtype": "Data",
+   "label": "NCC Details"
+  },
+  {
+   "default": "Independant Category",
+   "fieldname": "school_category",
+   "fieldtype": "Data",
+   "label": "School Category"
+  },
+  {
+   "default": "Today",
+   "fieldname": "application_receiving_date",
+   "fieldtype": "Date",
+   "label": "Application receiving Date"
+  },
+  {
+   "fieldname": "activities_in_student_take_part",
+   "fieldtype": "Small Text",
+   "label": "Activities in student take part",
+   "options": "Student Log"
+  },
+  {
+   "fetch_from": "student.date_of_leaving",
+   "fieldname": "date_of_leaving",
+   "fieldtype": "Date",
+   "label": "Date of Leaving"
+  },
+  {
+   "fieldname": "any_other_remarks",
+   "fieldtype": "Small Text",
+   "label": "Any Other Remarks"
+  },
+  {
+   "fieldname": "mothers_name",
+   "fieldtype": "Data",
+   "label": "Mother's Name"
+  },
+  {
+   "fieldname": "fathers_name",
+   "fieldtype": "Data",
+   "label": "Father's Name"
+  },
+  {
+   "fieldname": "proof_of_date_of_birth",
+   "fieldtype": "Data",
+   "label": "Proof of Date of Birth"
+  },
+  {
+   "fetch_from": "student.gender",
+   "fieldname": "gender",
+   "fieldtype": "Data",
+   "label": "Gender"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-16 11:35:08.469691",
+ "modified": "2022-09-26 17:24:23.270993",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS Student Certificate",
