@@ -187,3 +187,7 @@ override_whitelisted_methods = {
 # auth_hooks = [
 # 	"gc_education.auth.validate"
 # ]
+
+jenv = {
+    "methods": ["get_print_context:gc_education.ems_gc.print_format.get_print_context"]
+}
