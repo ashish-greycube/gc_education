@@ -2,6 +2,7 @@
 # Copyright (c) 2022, Greycube and contributors
 # For license information, please see license.txt
 
+from datetime import datetime
 import frappe
 import pendulum
 import os
@@ -23,14 +24,17 @@ def get_print_context(**args):
                     module,
                     "get_print_context",
                 )(**args)
-        except:
+        except Exception as ex:
             pass
 
     return {}
 
 
 def date_in_words(dt):
-    dt = pendulum.from_format(dt.strftime("%Y-%m-%d"), "YYYY-MM-DD")
+    if isinstance(dt, str):
+        dt = pendulum.from_format(dt, "YYYY-MM-DD")
+    else:
+        dt = pendulum.from_format(dt.strftime("%Y-%m-%d"), "YYYY-MM-DD")
     return dt.format("Do of MMM") + " " + frappe.unscrub(frappe.utils.in_words(dt.year))
 
 

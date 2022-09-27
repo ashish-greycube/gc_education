@@ -12,7 +12,6 @@
   "student_name",
   "gender",
   "date_of_birth",
-  "proof_of_date_of_birth",
   "column_break_8",
   "mothers_name",
   "fathers_name",
@@ -23,32 +22,39 @@
   "caste",
   "category",
   "academics_sb",
-  "application_receiving_date",
   "gr_number",
   "admission_date",
   "date_of_leaving",
   "academic_year",
   "academic_term",
+  "cb_1",
   "program",
   "student_group",
   "student_group_name",
-  "cb_1",
-  "last_enrolled_class",
-  "last_examination_with_result",
   "assessment_month",
-  "if_student_failed",
   "seat_number",
   "student_board",
+  "transfer_certificate_section",
+  "proof_of_date_of_birth",
+  "first_enrolled_date",
+  "first_enrolled_class",
+  "last_enrolled_class",
+  "last_enrolled_class_in_words",
+  "last_examination_with_result",
+  "if_student_failed",
   "course_enrollment",
+  "qualified_for_promotion",
   "new_enrollment_class",
+  "data_49",
   "total_attendance_days_in_a_year",
   "student_attendance_days_in_a_year",
   "last_fees_payment_date",
   "exempted_fees_if_any",
-  "activities_sb",
   "ncc_details",
-  "activities_in_student_take_part",
-  "any_other_remarks"
+  "student_activities",
+  "any_other_remarks",
+  "date_application_received",
+  "exit_date"
  ],
  "fields": [
   {
@@ -178,24 +184,18 @@
   },
   {
    "fieldname": "last_enrolled_class",
-   "fieldtype": "Data",
-   "label": "Last enrolled Class"
-  },
-  {
-   "fieldname": "last_examination_with_result",
    "fieldtype": "Link",
-   "label": "Last Examination with result",
-   "options": "Assessment Result"
+   "label": "Last Enrolled Class",
+   "options": "Program"
   },
   {
    "fieldname": "if_student_failed",
-   "fieldtype": "Select",
-   "label": "If Student failed",
-   "options": "Yes\nNo"
+   "fieldtype": "Data",
+   "label": "If Student failed"
   },
   {
    "fieldname": "course_enrollment",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Course Enrollment"
   },
   {
@@ -216,7 +216,7 @@
   },
   {
    "fieldname": "last_fees_payment_date",
-   "fieldtype": "Data",
+   "fieldtype": "Date",
    "label": "Last fees Payment Date"
   },
   {
@@ -228,18 +228,6 @@
    "fieldname": "ncc_details",
    "fieldtype": "Data",
    "label": "NCC Details"
-  },
-  {
-   "default": "Today",
-   "fieldname": "application_receiving_date",
-   "fieldtype": "Date",
-   "label": "Application receiving Date"
-  },
-  {
-   "fieldname": "activities_in_student_take_part",
-   "fieldtype": "Small Text",
-   "label": "Activities in student take part",
-   "options": "Student Log"
   },
   {
    "fetch_from": "student.date_of_leaving",
@@ -288,11 +276,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "activities_sb",
-   "fieldtype": "Section Break",
-   "label": "Activities and Remarks"
-  },
-  {
    "fieldname": "student_group_name",
    "fieldtype": "Data",
    "label": "Student Group Name"
@@ -301,11 +284,62 @@
    "fieldname": "assessment_month",
    "fieldtype": "Data",
    "label": "Assessment Month"
+  },
+  {
+   "fieldname": "transfer_certificate_section",
+   "fieldtype": "Section Break",
+   "label": "Transfer Certificate"
+  },
+  {
+   "fieldname": "first_enrolled_class",
+   "fieldtype": "Link",
+   "label": "First Enrolled Class",
+   "options": "Program"
+  },
+  {
+   "fieldname": "last_enrolled_class_in_words",
+   "fieldtype": "Data",
+   "label": "Last Enrolled Class In Words"
+  },
+  {
+   "fieldname": "first_enrolled_date",
+   "fieldtype": "Date",
+   "label": "First Enrolled Date"
+  },
+  {
+   "fieldname": "qualified_for_promotion",
+   "fieldtype": "Select",
+   "label": "Qualified for Promotion",
+   "options": "Yes\nNo"
+  },
+  {
+   "fieldname": "data_49",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "student_activities",
+   "fieldtype": "Small Text",
+   "label": "Student Activities"
+  },
+  {
+   "fieldname": "date_application_received",
+   "fieldtype": "Date",
+   "label": "Date Application Received"
+  },
+  {
+   "fieldname": "exit_date",
+   "fieldtype": "Date",
+   "label": "Exit Date"
+  },
+  {
+   "fieldname": "last_examination_with_result",
+   "fieldtype": "Data",
+   "label": "Last Examination Taken with result"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-27 16:41:08.577348",
+ "modified": "2022-09-27 19:14:44.637592",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS Student Certificate",
