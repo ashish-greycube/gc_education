@@ -28,16 +28,16 @@ def make_payment_request(**args):
         for d in frappe.db.sql(
             """
                 select 
-                    tb.payment_gateway_account_cf 
+                    tb.payment_gateway_account_cf , mode_of_payment_cf
                 from tabFees tf 
-                inner join `tabFee Schedule` tfs  on tfs.name = tf.fee_schedule 
-                inner join tabBranch tb on tb.name = tfs.branch 
+                inner join tabBranch tb on tb.name = tf.branch 
                 where tf.name = %s
             """,
             (args.dn,),
-            pluck=["payment_gateway_account_cf"],
+            pluck=["payment_gateway_account_cf", "mode_of_payment_cf"],
         ):
-            args["payment_gateway_account"] = d
+            args["payment_gateway_account"] = d["payment_gateway_account_cf"]
+            args["mode_of_payment"] = d["mode_of_payment_cf"]
 
     gateway_account = get_gateway_details(args) or frappe._dict()
 
