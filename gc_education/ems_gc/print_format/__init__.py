@@ -14,14 +14,17 @@ def get_print_context(**args):
     print_format = frappe.scrub(args.get("print_format", ""))
 
     if print_format:
-        if os.path.exists(os.path.join(os.path.dirname(__file__), print_format)):
-            module = frappe.get_module(
-                f"gc_education.ems_gc.print_format.{print_format}"
-            )
-            return getattr(
-                module,
-                "get_print_context",
-            )(**args)
+        try:
+            if os.path.exists(os.path.join(os.path.dirname(__file__), print_format)):
+                module = frappe.get_module(
+                    f"gc_education.ems_gc.print_format.{print_format}"
+                )
+                return getattr(
+                    module,
+                    "get_print_context",
+                )(**args)
+        except:
+            pass
 
     return {}
 

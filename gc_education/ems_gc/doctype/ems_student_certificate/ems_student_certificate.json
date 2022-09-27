@@ -6,44 +6,49 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "student",
+  "certificate_date",
   "certificate_type",
+  "student",
   "student_name",
-  "mothers_name",
-  "fathers_name",
+  "gender",
   "date_of_birth",
   "proof_of_date_of_birth",
+  "column_break_8",
+  "mothers_name",
+  "fathers_name",
+  "guardian_name",
   "nationality",
+  "birth_place",
+  "state",
+  "caste",
   "category",
+  "academics_sb",
+  "application_receiving_date",
+  "gr_number",
+  "admission_date",
+  "date_of_leaving",
+  "academic_year",
+  "academic_term",
   "program",
+  "student_group",
+  "student_group_name",
+  "cb_1",
   "last_enrolled_class",
   "last_examination_with_result",
+  "assessment_month",
   "if_student_failed",
+  "seat_number",
+  "student_board",
   "course_enrollment",
   "new_enrollment_class",
   "total_attendance_days_in_a_year",
   "student_attendance_days_in_a_year",
-  "cb_1",
   "last_fees_payment_date",
   "exempted_fees_if_any",
+  "activities_sb",
   "ncc_details",
-  "school_category",
   "activities_in_student_take_part",
-  "application_receiving_date",
-  "date_of_leaving",
-  "certificate_date",
-  "any_other_remarks",
-  "gr_number",
-  "student_group",
-  "academic_year",
-  "admission_date",
-  "caste",
-  "birth_place",
-  "academic_term",
-  "state",
-  "student_board",
-  "seat_number",
-  "gender"
+  "any_other_remarks"
  ],
  "fields": [
   {
@@ -132,7 +137,6 @@
    "label": "Caste"
   },
   {
-   "fetch_from": "student.pincode",
    "fieldname": "program",
    "fieldtype": "Link",
    "label": "Program",
@@ -226,12 +230,6 @@
    "label": "NCC Details"
   },
   {
-   "default": "Independant Category",
-   "fieldname": "school_category",
-   "fieldtype": "Data",
-   "label": "School Category"
-  },
-  {
    "default": "Today",
    "fieldname": "application_receiving_date",
    "fieldtype": "Date",
@@ -274,11 +272,40 @@
    "fieldname": "gender",
    "fieldtype": "Data",
    "label": "Gender"
+  },
+  {
+   "fieldname": "guardian_name",
+   "fieldtype": "Data",
+   "label": "Guardian Name"
+  },
+  {
+   "fieldname": "academics_sb",
+   "fieldtype": "Section Break",
+   "label": "Academics"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "activities_sb",
+   "fieldtype": "Section Break",
+   "label": "Activities and Remarks"
+  },
+  {
+   "fieldname": "student_group_name",
+   "fieldtype": "Data",
+   "label": "Student Group Name"
+  },
+  {
+   "fieldname": "assessment_month",
+   "fieldtype": "Data",
+   "label": "Assessment Month"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-26 17:24:23.270993",
+ "modified": "2022-09-27 16:41:08.577348",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS Student Certificate",

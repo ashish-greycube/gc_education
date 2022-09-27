@@ -1,30 +1,30 @@
 {
-    "add_total_row": 0,
-    "columns": [],
-    "creation": "2022-09-10 16:55:32.553737",
-    "disable_prepared_report": 0,
-    "disabled": 0,
-    "docstatus": 0,
-    "doctype": "Report",
-    "filters": [],
-    "idx": 0,
-    "is_standard": "Yes",
-    "letter_head": "Main",
-    "modified": "2022-09-15 19:40:38.643490",
-    "modified_by": "Administrator",
-    "module": "EMS GC",
-    "name": "Student Class List",
-    "owner": "Administrator",
-    "prepared_report": 0,
-    "ref_doctype": "Student Certificate",
-    "report_name": "Student Class List",
-    "report_type": "Script Report",
-    "roles": [
-        {
-            "role": "Instructor"
-        },
-        {
-            "role": "Academics User"
-        }
-    ]
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2022-09-10 16:55:32.553737",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "Main",
+ "modified": "2022-09-27 11:32:54.650778",
+ "modified_by": "Administrator",
+ "module": "EMS GC",
+ "name": "Student Class List",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "EMS Student Certificate",
+ "report_name": "Student Class List",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Instructor"
+  },
+  {
+   "role": "Academics User"
+  }
+ ]
 }
