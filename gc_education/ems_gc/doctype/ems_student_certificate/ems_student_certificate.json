@@ -15,6 +15,7 @@
   "column_break_8",
   "mothers_name",
   "fathers_name",
+  "guardian_name",
   "nationality",
   "birth_place",
   "state",
@@ -53,8 +54,7 @@
   "ncc_details",
   "student_activities",
   "any_other_remarks",
-  "date_application_received",
-  "guardian_name"
+  "date_application_received"
  ],
  "fields": [
   {
@@ -332,18 +332,20 @@
   {
    "fieldname": "guardian_name",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Guardian Name"
   },
   {
    "fetch_from": "student.belongs_to_sc_st_or_obc",
    "fieldname": "belongs_to_sc_st_or_obc_cf",
-   "fieldtype": "Data",
-   "label": "Belongs to SC ST or OBC"
+   "fieldtype": "Select",
+   "label": "Belongs to SC ST or OBC",
+   "options": "Yes\nNo"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-28 15:43:24.912745",
+ "modified": "2022-09-28 20:01:55.513318",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS Student Certificate",

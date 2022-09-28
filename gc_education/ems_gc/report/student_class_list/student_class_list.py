@@ -24,7 +24,7 @@ def get_data(filters):
             when ts.enabled = 1 then 'Enabled' 
             when ts.date_of_leaving is not null and ts.date_of_leaving > %(as_on_date)s then 'Enabled'
             else 'Disabled' end student_status ,
-        ts.leaving_certificate_number 
+        ts.leaving_certificate_number , tsg.name student_group , tpe.name program_enrollment
     from tabStudent ts 
     inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
     inner join `tabProgram` tpr on tpr.name = tpe.program
@@ -51,6 +51,9 @@ def get_data(filters):
 
 def get_conditions(filters):
     conditions = []
+    if filters.get("student"):
+        conditions.append(" ts.name = %(student)s")
+
     if filters.get("academic_year"):
         conditions.append(" tpe.academic_year = %(academic_year)s")
     if filters.get("academic_term"):
