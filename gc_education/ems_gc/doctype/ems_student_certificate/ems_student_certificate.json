@@ -15,12 +15,12 @@
   "column_break_8",
   "mothers_name",
   "fathers_name",
-  "guardian_name",
   "nationality",
   "birth_place",
   "state",
   "caste",
   "category",
+  "belongs_to_sc_st_or_obc",
   "academics_sb",
   "gr_number",
   "admission_date",
@@ -54,7 +54,7 @@
   "student_activities",
   "any_other_remarks",
   "date_application_received",
-  "exit_date"
+  "guardian_name"
  ],
  "fields": [
   {
@@ -178,6 +178,7 @@
    "label": "Nationality"
   },
   {
+   "fetch_from": "student.caste_category",
    "fieldname": "category",
    "fieldtype": "Data",
    "label": "Category"
@@ -189,9 +190,11 @@
    "options": "Program"
   },
   {
+   "default": "No",
    "fieldname": "if_student_failed",
-   "fieldtype": "Data",
-   "label": "If Student failed"
+   "fieldtype": "Select",
+   "label": "If Student failed",
+   "options": "Yes\nNo"
   },
   {
    "fieldname": "course_enrollment",
@@ -262,11 +265,6 @@
    "label": "Gender"
   },
   {
-   "fieldname": "guardian_name",
-   "fieldtype": "Data",
-   "label": "Guardian Name"
-  },
-  {
    "fieldname": "academics_sb",
    "fieldtype": "Section Break",
    "label": "Academics"
@@ -327,19 +325,25 @@
    "label": "Date Application Received"
   },
   {
-   "fieldname": "exit_date",
-   "fieldtype": "Date",
-   "label": "Exit Date"
-  },
-  {
    "fieldname": "last_examination_with_result",
    "fieldtype": "Data",
    "label": "Last Examination Taken with result"
+  },
+  {
+   "fetch_from": "student.belongs_to_sc_st_or_obc",
+   "fieldname": "belongs_to_sc_st_or_obc",
+   "fieldtype": "Data",
+   "label": "Belongs to SC ST or OBC"
+  },
+  {
+   "fieldname": "guardian_name",
+   "fieldtype": "Data",
+   "label": "Guardian Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-27 19:14:44.637592",
+ "modified": "2022-09-28 11:59:25.679725",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS Student Certificate",
