@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"card\",\"data\":{\"card_name\":\"Student Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Fees Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Payment Gateway\",\"col\":4}}]",
+ "content": "[{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Certificate\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Student Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Fees Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Payment Gateway\",\"col\":4}}]",
  "creation": "2022-09-11 10:23:58.070038",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -10,6 +10,16 @@
  "idx": 0,
  "label": "EMS GC",
  "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student Certificate",
+   "link_count": 0,
+   "link_to": "EMS Student Certificate",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -215,7 +225,7 @@
    "type": "Link"
   }
  ],
- "modified": "2022-09-20 20:30:49.435116",
+ "modified": "2022-09-28 16:25:10.670693",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS GC",
@@ -225,6 +235,14 @@
  "quick_lists": [],
  "roles": [],
  "sequence_id": 36.0,
- "shortcuts": [],
+ "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Certificate",
+   "link_to": "EMS Student Certificate",
+   "type": "DocType"
+  }
+ ],
  "title": "EMS GC"
 }

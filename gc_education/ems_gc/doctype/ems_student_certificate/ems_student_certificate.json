@@ -20,7 +20,7 @@
   "state",
   "caste",
   "category",
-  "belongs_to_sc_st_or_obc",
+  "belongs_to_sc_st_or_obc_cf",
   "academics_sb",
   "gr_number",
   "admission_date",
@@ -330,20 +330,20 @@
    "label": "Last Examination Taken with result"
   },
   {
-   "fetch_from": "student.belongs_to_sc_st_or_obc",
-   "fieldname": "belongs_to_sc_st_or_obc",
-   "fieldtype": "Data",
-   "label": "Belongs to SC ST or OBC"
-  },
-  {
    "fieldname": "guardian_name",
    "fieldtype": "Data",
    "label": "Guardian Name"
+  },
+  {
+   "fetch_from": "student.belongs_to_sc_st_or_obc",
+   "fieldname": "belongs_to_sc_st_or_obc_cf",
+   "fieldtype": "Data",
+   "label": "Belongs to SC ST or OBC"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-09-28 11:59:25.679725",
+ "modified": "2022-09-28 15:43:24.912745",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS Student Certificate",
