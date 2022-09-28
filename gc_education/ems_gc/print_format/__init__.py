@@ -44,9 +44,11 @@ def get_fees_detail(**args):
     select 
         tpe.mode_of_payment , tpe.reference_no , tpe.reference_date , tpe.bank_name bank
     from `tabPayment Entry Reference` tper
-    inner join `tabPayment Entry` tpe on tpe.name = tper.parent
-    left outer join `tabPayment Request` tpr on tpr.name = tper.reference_name
-    where tper.reference_doctype  = 'Fees' and tper.reference_name = %s
+        inner join `tabPayment Entry` tpe on tpe.name = tper.parent
+        left outer join `tabPayment Request` tpr on tpr.name = tper.reference_name
+    where 
+        tpe.docstatus = 1 and tper.reference_doctype  = 'Fees' 
+        and tper.reference_name = %s
     limit 1
     """,
         (args.get("doc", {}).get("name", "")),
