@@ -18,6 +18,8 @@ from erpnext.accounts.party import get_party_account, get_party_bank_account
 def make_payment_request(**args):
     """Make payment request"""
 
+    # frappe.throw("u")
+
     # Use ErpNext method if not Fees
     if not args.get("dt") == "Fees":
         return _make_payment_request(**args)
@@ -34,7 +36,7 @@ def make_payment_request(**args):
                 where tf.name = %s
             """,
             (args.dn,),
-            pluck=["payment_gateway_account_cf", "mode_of_payment_cf"],
+            as_dict=True,
         ):
             args["payment_gateway_account"] = d["payment_gateway_account_cf"]
             args["mode_of_payment"] = d["mode_of_payment_cf"]
