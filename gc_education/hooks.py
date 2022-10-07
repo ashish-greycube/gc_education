@@ -103,13 +103,11 @@ override_doctype_class = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+    "Student Applicant": {
+        "validate": "gc_education.ems_gc.controllers.doc_events.validate_student_applicant"
+    }
+}
 
 # Scheduled Tasks
 # ---------------
