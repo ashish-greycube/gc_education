@@ -18,23 +18,15 @@ class GCPaymentRequest(PaymentRequest):
 
     # override payment_request.py
     def create_payment_entry(self, submit=True):
-        """create entry"""
+        """Set Branch, Party Type, Party Name, Mode of Payment for Fees"""
+        if not self.reference_doctype == "Fees":
+            return super(PaymentRequest, self).create_payment_entry(submit=submit)
+
         frappe.flags.ignore_account_permission = True
-        fees_branch = None
 
         ref_doc = frappe.get_doc(self.reference_doctype, self.reference_name)
 
-        if self.reference_doctype in ["Sales Invoice", "POS Invoice"]:
-            party_account = ref_doc.debit_to
-        elif self.reference_doctype == "Purchase Invoice":
-            party_account = ref_doc.credit_to
-        elif self.reference_doctype == "Fees":
-            party_account = ref_doc.receivable_account
-            fees_branch = ref_doc.get("branch")
-        else:
-            party_account = get_party_account(
-                "Customer", ref_doc.get("customer"), ref_doc.company
-            )
+        party_account = ref_doc.receivable_account
 
         party_account_currency = ref_doc.get(
             "party_account_currency"
@@ -49,15 +41,12 @@ class GCPaymentRequest(PaymentRequest):
         else:
             party_amount = self.grand_total
 
-        payment_type = (
-            "Receive" if self.reference_doctype == "Fees" and party_amount > 0 else None
-        )
-        party_type = "Student" if self.reference_doctype == "Fees" else None
+        payment_type = "Receive" if party_amount > 0 else None
 
         payment_entry = get_payment_entry(
             self.reference_doctype,
             self.reference_name,
-            party_type=party_type,
+            party_type="Student",
             payment_type=payment_type,
             party_amount=party_amount,
             bank_account=self.payment_account,
@@ -74,9 +63,16 @@ class GCPaymentRequest(PaymentRequest):
             }
         )
 
-        # set branch for Fees
-        if fees_branch:
-            payment_entry.update({"branch": fees_branch})
+        # set party name from Student, set branch from Fees, mode_of_payment from branch
+        payment_entry.update(
+            {
+                "party_name": frappe.db.get_value("Student", self.party, "title"),
+                "branch": ref_doc.get("branch"),
+                "mode_of_payment": frappe.db.get_value(
+                    "Branch", ref_doc.get("branch"), "mode_of_payment_cf"
+                ),
+            }
+        )
 
         if payment_entry.difference_amount:
             company_details = get_company_defaults(ref_doc.company)
