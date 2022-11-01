@@ -20,6 +20,7 @@ class GCPaymentRequest(PaymentRequest):
     def create_payment_entry(self, submit=True):
         """create entry"""
         frappe.flags.ignore_account_permission = True
+        fees_branch = None
 
         ref_doc = frappe.get_doc(self.reference_doctype, self.reference_name)
 
@@ -29,6 +30,7 @@ class GCPaymentRequest(PaymentRequest):
             party_account = ref_doc.credit_to
         elif self.reference_doctype == "Fees":
             party_account = ref_doc.receivable_account
+            fees_branch = ref_doc.get("branch")
         else:
             party_account = get_party_account(
                 "Customer", ref_doc.get("customer"), ref_doc.company
@@ -71,6 +73,10 @@ class GCPaymentRequest(PaymentRequest):
                 ),
             }
         )
+
+        # set branch for Fees
+        if fees_branch:
+            payment_entry.update({"branch": fees_branch})
 
         if payment_entry.difference_amount:
             company_details = get_company_defaults(ref_doc.company)
