@@ -66,7 +66,6 @@ class GCPaymentRequest(PaymentRequest):
         # set party name from Student, set branch from Fees, mode_of_payment from branch
         payment_entry.update(
             {
-                "party_name": frappe.db.get_value("Student", self.party, "title"),
                 "branch": ref_doc.get("branch"),
                 "mode_of_payment": frappe.db.get_value(
                     "Branch", ref_doc.get("branch"), "mode_of_payment_cf"
@@ -89,5 +88,10 @@ class GCPaymentRequest(PaymentRequest):
         if submit:
             payment_entry.insert(ignore_permissions=True)
             payment_entry.submit()
+
+        # db_set party_name as frappe sets it to name by default
+        payment_entry.db_set(
+            "party_name", frappe.db.get_value("Student", self.party, "title")
+        )
 
         return payment_entry
