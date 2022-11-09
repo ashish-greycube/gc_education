@@ -12,11 +12,75 @@ from erpnext.accounts.doctype.payment_entry.payment_entry import (
     get_payment_entry,
 )
 from frappe.utils import nowdate
+from payments.utils import get_payment_gateway_controller
+from frappe.utils import flt, get_url, nowdate
+import json
+import urllib.parse
 
 
 class GCPaymentRequest(PaymentRequest):
+    """
+    override payment_request of erpnext
+    """
 
-    # override payment_request.py
+    def get_fees_description(self, fees_name):
+        for d in frappe.db.sql(
+            """
+                    select 
+                        student `Student Id` , 
+                        g_r_number_cf `Student GR No.`,
+                        student_name `Student Name` , 
+                        concat(program, '/', student_batch) `Class/Division` ,
+                        academic_year `Academic Year` , 
+                        academic_term `Academic Term` 
+                    from tabFees tf 
+                    where name = %s 
+                """,
+            (fees_name),
+            as_dict=True,
+        ):
+            return d
+
+    def get_payment_url(self):
+        """
+        Override erpnext fn to send student details in description to razorpay
+        """
+        if self.reference_doctype != "Fees":
+            return super(GCPaymentRequest, self).get_payment_url()
+
+        # custom code to set description in razorpay options.. see razorpay_checkout.js
+        data = frappe.db.get_value(
+            self.reference_doctype, self.reference_name, ["student_name"], as_dict=1
+        )
+
+        fees_description = self.get_fees_description(self.reference_name) or {}
+        student_name = fees_description.get("Student Name")
+        description = ", ".join(
+            ["{}:{}".format(k, fees_description[k]) for k in fees_description]
+        )
+
+        payment_options = {
+            "amount": flt(self.grand_total, self.precision("grand_total")),
+            "title": "Fees for {}".format(student_name),
+            "description": description,
+            "reference_doctype": "Payment Request",
+            "reference_docname": self.name,
+            "payer_email": self.email_to or frappe.session.user,
+            "payer_name": student_name,
+            "order_id": self.name,
+            "currency": self.currency,
+        }
+
+        controller = get_payment_gateway_controller(self.payment_gateway)
+        controller.validate_transaction_currency(self.currency)
+
+        if hasattr(controller, "validate_minimum_transaction_amount"):
+            controller.validate_minimum_transaction_amount(
+                self.currency, self.grand_total
+            )
+
+        return controller.get_payment_url(**payment_options)
+
     def create_payment_entry(self, submit=True):
         """Set Branch, Party Type, Party Name, Mode of Payment for Fees"""
         if not self.reference_doctype == "Fees":
