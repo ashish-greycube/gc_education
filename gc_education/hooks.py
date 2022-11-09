@@ -109,7 +109,10 @@ override_doctype_class = {
 doc_events = {
     "Student Applicant": {
         "validate": "gc_education.ems_gc.controllers.doc_events.validate_student_applicant"
-    }
+    },
+    "Payment Ledger Entry": {
+        "on_update": "gc_education.ems_gc.controllers.doc_events.on_update_payment_ledger_entry"
+    },
 }
 
 # Scheduled Tasks
