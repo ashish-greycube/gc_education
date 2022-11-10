@@ -59,9 +59,10 @@ class GCPaymentRequest(PaymentRequest):
             ["{}:{}".format(k, fees_description[k]) for k in fees_description]
         )
 
+        amount = flt(self.grand_total, self.precision("grand_total"))
         payment_options = {
-            "amount": flt(self.grand_total, self.precision("grand_total")),
-            "title": "Fees for {}".format(student_name),
+            "amount": amount,
+            "title": "{}-{}".format(amount, student_name),
             "description": description,
             "reference_doctype": "Payment Request",
             "reference_docname": self.name,

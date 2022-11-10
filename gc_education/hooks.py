@@ -31,7 +31,6 @@ app_include_js = "/assets/gc_education/js/ems_gc.js"
 # include js in doctype views
 doctype_js = {
     "Payment Entry": "public/js/payment_entry.js",
-    "Payment Request": "public/js/payment_request.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
