@@ -26,7 +26,7 @@ def get_data(filters):
     inner join `tabProgram` tpr on tpr.name = tfs.program
 	inner join `tabFee Schedule Student Group` tfssg on tfssg.parent = tfs.name
 	inner join `tabStudent Group` tsg on tsg.name = tfssg.student_group 
-	inner JOIN tabFees tf on tf.fee_schedule = tfs.name
+	inner JOIN tabFees tf on tf.fee_schedule = tfs.name and tf.docstatus = 1
     inner join `tabFee Component` tfc on tfc.parent = tf.name
     inner join tabStudent ts on ts.name = tf.student
     inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = ts.name 
@@ -92,9 +92,9 @@ def get_data(filters):
 def get_conditions(filters):
     conditions = []
     if filters.get("academic_year"):
-        conditions.append(" tfs.academic_year = %(academic_year)s")
+        conditions.append(" tf.academic_year = %(academic_year)s")
     if filters.get("academic_term"):
-        conditions.append(" tfs.academic_term = %(academic_term)s")
+        conditions.append(" tf.academic_term = %(academic_term)s")
     if filters.get("batch"):
         lst = filters.batch
         # to prevent SQL Injection

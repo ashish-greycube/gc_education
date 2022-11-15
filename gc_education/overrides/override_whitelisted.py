@@ -12,6 +12,30 @@ from erpnext.accounts.doctype.payment_request.payment_request import (
     make_payment_request as _make_payment_request,
 )
 from erpnext.accounts.party import get_party_account, get_party_bank_account
+from erpnext.accounts.doctype.payment_entry.payment_entry import (
+    get_payment_entry as _get_payment_entry,
+)
+
+
+@frappe.whitelist()
+def get_payment_entry(
+    dt,
+    dn,
+    party_amount=None,
+    bank_account=None,
+    bank_amount=None,
+    party_type=None,
+    payment_type=None,
+):
+    pe = _get_payment_entry(
+        dt, dn, party_amount, bank_account, bank_amount, party_type, payment_type
+    )
+    if not dt in "Fees":
+        return pe
+    pe.party_name = frappe.db.get_value(
+        "Student", frappe.db.get_value("Fees", dn, "student"), "title"
+    )
+    return pe
 
 
 @frappe.whitelist(allow_guest=True)
