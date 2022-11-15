@@ -7,6 +7,41 @@ import frappe
 import pendulum
 import os
 
+ORDINAL_NUMBERS = [
+    "",
+    "First",
+    "Second",
+    "Third",
+    "Fourth",
+    "Fifth",
+    "Sixth",
+    "Seventh",
+    "Eighth",
+    "Ninth",
+    "Tenth",
+    "ELeventh",
+    "Twelfth",
+    "Thirteenth",
+    "Fourteenth",
+    "Fifteenth",
+    "Sixteenth",
+    "Seventeenth",
+    "Eighteenth",
+    "Nineteenth",
+    "Twentieth",
+    "Twenty-first",
+    "Twenty-second",
+    "Twenty-third",
+    "Twenty-fourth",
+    "Twenty-fifth",
+    "Twenty-sixth",
+    "Twenty-seventh",
+    "Twenty-eigth",
+    "Twenty-ninth",
+    "Thirtieth",
+    "Thirty-first",
+]
+
 
 def get_print_context(**args):
     if args.get("doc", {}).get("doctype", "") == "Fees":
@@ -35,7 +70,12 @@ def date_in_words(dt):
         dt = pendulum.from_format(dt, "YYYY-MM-DD")
     else:
         dt = pendulum.from_format(dt.strftime("%Y-%m-%d"), "YYYY-MM-DD")
-    return dt.format("Do of MMM") + " " + frappe.unscrub(frappe.utils.in_words(dt.year))
+
+    return "{} of {} {}".format(
+        ORDINAL_NUMBERS[dt.day],
+        dt.format("MMMM"),
+        frappe.unscrub(frappe.utils.in_words(dt.year)),
+    )
 
 
 def get_fees_detail(**args):

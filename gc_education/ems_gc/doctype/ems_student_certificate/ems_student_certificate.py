@@ -41,7 +41,7 @@ class EMSStudentCertificate(Document):
         student_doc = frappe.db.get_value(
             "Student",
             self.student,
-            ["birth_place", "birth_state", "caste", "caste_category"],
+            ["birth_place", "birth_state", "caste", "caste_category", "gender"],
             as_dict=1,
         )
 
@@ -53,6 +53,8 @@ class EMSStudentCertificate(Document):
         set_if_blank("state", student_doc.birth_state)
         set_if_blank("caste", student_doc.caste)
         set_if_blank("category", student_doc.caste_category)
+
+        self.set("title", "Kumar" if student_doc.gender == "Male" else "Kumari")
 
         _, data = class_list(
             filters=frappe._dict(
