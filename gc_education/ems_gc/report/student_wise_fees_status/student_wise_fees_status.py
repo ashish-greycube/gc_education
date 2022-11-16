@@ -15,7 +15,7 @@ def get_data(filters):
     data = frappe.db.sql(
         """
 	select 
-		tfs.academic_year , tfs.academic_term , tfs.program ,
+		tf.academic_year , tf.academic_term , tfs.program ,
 		tf.student , tf.student_name , tf.grand_total , tf.outstanding_amount , 
 		tf.grand_total - tf.outstanding_amount paid_amount , 
 		tf.branch , tf.cost_center , tsg.batch division , 
