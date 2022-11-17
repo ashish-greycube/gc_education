@@ -6,12 +6,17 @@ from gc_education.ems_gc.report.student_wise_fees_status.student_wise_fees_statu
     get_data,
 )
 from gc_education.ems_gc.report import csv_to_columns
+from frappe.desk.query_report import add_total_row
 
 
 def execute(filters=None):
     columns = get_columns()
     _columns, data = get_data(filters)
+
     data = [d for d in data if d.get("outstanding_amount", 0) > 0]
+    columns = [isinstance(x, zip) and dict(x) or x for x in columns]
+    add_total_row(data, columns)
+
     return columns, data
 
 

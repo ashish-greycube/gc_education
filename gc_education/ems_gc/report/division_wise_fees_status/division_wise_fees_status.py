@@ -8,6 +8,7 @@ from gc_education.ems_gc.report.student_wise_fees_status.student_wise_fees_statu
 from gc_education.ems_gc.report import csv_to_columns
 from itertools import groupby
 from operator import itemgetter
+from frappe.desk.query_report import add_total_row
 
 
 def execute(filters=None):
@@ -42,6 +43,10 @@ def execute(filters=None):
     columns = get_columns(filters)
     if not filters.get("show_pending_student_count"):
         columns[5:5] = [d for d in _columns if isinstance(d, dict)]
+
+    columns = [isinstance(x, zip) and dict(x) or x for x in columns]
+
+    add_total_row(out, columns)
     return columns, out
 
 

@@ -3,30 +3,38 @@
 
 import frappe
 from gc_education.ems_gc.report import csv_to_columns
+from gc_education.ems_gc.report.student_wise_fees_status.student_wise_fees_status import (
+    execute as _execute,
+)
+from frappe.desk.query_report import add_total_row
 
 
 def execute(filters=None):
-    columns, data = get_columns(), get_data(filters)
+    # columns, data = get_columns(), get_data(filters)
+    columns, data = _execute(filters)
+    columns = [isinstance(x, zip) and dict(x) or x for x in columns]
+    columns = [
+        col for col in columns if not dict(col).get("fieldname") == "outstanding_amount"
+    ] + get_columns()
+
+    columns = [isinstance(x, zip) and dict(x) or x for x in columns]
+
+    if data and data[-1]["academic_year"] == "Total":
+        data = data[:-1]
+
+    add_total_row(data, columns)
     return columns, data
 
 
 def get_columns():
     return csv_to_columns(
         """
-        Academic Year,academic_year,,,150
-        Academic Term,academic_term,,,150
-        Class,class,,,120
-        Division,division,,120
-        Roll No.,group_roll_number,,Int,120
-		ID No.,party,Link,Student,190
-        Name,student_name,,,250
 		Posting Date,posting_date,Date,,145
-		Receipt No.,name,Link,Payment Entry,150
+		Receipt No.,payment_entry,Link,Payment Entry,150
 		Payment Type,mode_of_payment,,,110
 		Cheque No.,reference_no,,,110
 		Cheque Dt.,reference_date,Date,,110
 		Bank,bank,,,130
-		Amount,paid_amount,Currency,,110
     """
     )
 

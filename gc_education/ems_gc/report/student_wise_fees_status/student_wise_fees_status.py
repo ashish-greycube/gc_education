@@ -15,9 +15,8 @@ def get_data(filters):
     data = frappe.db.sql(
         """
 	select 
-		tf.academic_year , tf.academic_term , tfs.program ,
-		tf.student , tf.student_name , tf.grand_total , tf.outstanding_amount , 
-		tf.grand_total - tf.outstanding_amount paid_amount , 
+		tf.academic_year , tf.academic_term , tfs.program , tf.name fees,
+		tf.student , tf.student_name , tf.grand_total , 
 		tf.branch , tf.cost_center , tsg.batch division , 
         ts.student_mobile_number , tsgs.group_roll_number , ts.g_r_number ,
         tf.posting_date , tf.due_date ,
@@ -56,8 +55,9 @@ def get_data(filters):
             "due_date",
             "description",
             "grand_total",
-            "paid_amount",
-            "outstanding_amount",
+            # "paid_amount",
+            # "outstanding_amount",
+            "fees",
         ],
         columns=["fees_category"],
         values=["amount"],
@@ -81,8 +81,59 @@ def get_data(filters):
     columns[9:9] = pivot_cols
     # columns[-1]["label"] = "Total"
 
+    payments = frappe.db.sql(
+        """
+        select 
+            tper.reference_name fees , 
+            sum(tper.allocated_amount) paid_amount ,
+			tpe.name payment_entry,
+            tpe.mode_of_payment ,
+			tpe.posting_date , 
+            tpe.reference_no , 
+            tpe.reference_date
+        from `tabPayment Entry` tpe
+        inner join `tabPayment Entry Reference` tper on tper.parent = tpe.name
+        where
+            tpe.docstatus = 1 and tper.reference_doctype = 'Fees' 
+            and tpe.posting_date BETWEEN %s and %s 
+        group by tper.reference_doctype , tper.reference_name
+    """,
+        (
+            filters.get("from_date") or "1900-01-01",
+            filters.get("to_date") or "2200-01-01",
+        ),
+        as_dict=True,
+    )
+
+    if payments:
+        df3 = pandas.DataFrame.from_records(payments)
+        df4 = pandas.merge(
+            df2,
+            df3,
+            on=["fees"],
+            how="left",
+        )
+        nan_columns = [
+            "fees",
+            "paid_amount",
+            "payment_entry",
+            "posting_date",
+            "reference_no",
+            "reference_date",
+        ]
+
+        # df4[nan_columns] = df4[nan_columns].fillna(0)
+        df4.fillna(0, inplace=True)
+        df4["outstanding_amount"] = df4.apply(
+            lambda row: (row.grand_total if not isinstance(row.grand_total, str) else 0)
+            - row.paid_amount,
+            axis=1,
+        )
+    else:
+        df4 = df2
+
     out = []
-    for d in df2.to_dict("r"):
+    for d in df4.to_dict("r"):
         out.append({k: v for k, v in d.items() if v})
     out[-1]["bold"] = 1
 
@@ -104,10 +155,7 @@ def get_conditions(filters):
                 ",".join(["'%s'" % d for d in lst if d in batches])
             )
         )
-    if filters.get("from_date"):
-        conditions.append("tf.due_date >= %(from_date)s")
-    if filters.get("to_date"):
-        conditions.append("tf.due_date <= %(to_date)s")
+
     if filters.get("program"):
         lst = filters.program
         # to prevent SQL Injection
