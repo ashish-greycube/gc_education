@@ -2,7 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
-from gc_education.ems_gc.report import csv_to_columns
+from gc_education.ems_gc.report import csv_to_columns, _add_total_row
 from gc_education.ems_gc.report.student_wise_fees_status.student_wise_fees_status import (
     execute as _execute,
 )
@@ -12,15 +12,10 @@ from frappe.desk.query_report import add_total_row
 def execute(filters=None):
     # columns, data = get_columns(), get_data(filters)
     columns, data = _execute(filters)
-    columns = [isinstance(x, zip) and dict(x) or x for x in columns]
+    data = data[:-1]
     columns = [
         col for col in columns if not dict(col).get("fieldname") == "outstanding_amount"
     ] + get_columns()
-
-    columns = [isinstance(x, zip) and dict(x) or x for x in columns]
-
-    if data and data[-1]["academic_year"] == "Total":
-        data = data[:-1]
 
     add_total_row(data, columns)
     return columns, data

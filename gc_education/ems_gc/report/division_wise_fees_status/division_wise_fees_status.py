@@ -5,7 +5,7 @@ import frappe
 from gc_education.ems_gc.report.student_wise_fees_status.student_wise_fees_status import (
     get_data,
 )
-from gc_education.ems_gc.report import csv_to_columns
+from gc_education.ems_gc.report import csv_to_columns, _add_total_row
 from itertools import groupby
 from operator import itemgetter
 from frappe.desk.query_report import add_total_row
@@ -15,12 +15,11 @@ def execute(filters=None):
     _columns, data = get_data(filters)
     data = data[:-1]
 
-    columns_to_total = [d["fieldname"] for d in _columns if isinstance(d, dict)] + [
-        "outstanding_amount",
-        "paid_amount",
-        "grand_total",
+    columns_to_total = [
+        d["fieldname"]
+        for d in _columns
+        if isinstance(d, dict) and d.get("fieldtype") == "Currency"
     ]
-
     out = []
 
     for key, group in groupby(
@@ -43,8 +42,6 @@ def execute(filters=None):
     columns = get_columns(filters)
     if not filters.get("show_pending_student_count"):
         columns[5:5] = [d for d in _columns if isinstance(d, dict)]
-
-    columns = [isinstance(x, zip) and dict(x) or x for x in columns]
 
     add_total_row(out, columns)
     return columns, out
@@ -71,8 +68,5 @@ def get_columns(filters):
         Class,program,,,120
         Division,division,,120
         Quarter,description,,,130
-        Total Amount,grand_total,Currency,,130
-        Paid Amount,paid_amount,Currency,,130
-        Pending Amount,outstanding_amount,Currency,,130
     """
     )
