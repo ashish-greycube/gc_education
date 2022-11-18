@@ -5,7 +5,7 @@ import frappe
 from gc_education.ems_gc.report.student_wise_fees_status.student_wise_fees_status import (
     get_data,
 )
-from gc_education.ems_gc.report import csv_to_columns, _add_total_row
+from gc_education.ems_gc.report import csv_to_columns
 from frappe.desk.query_report import add_total_row
 
 

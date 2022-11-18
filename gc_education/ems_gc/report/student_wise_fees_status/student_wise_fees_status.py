@@ -2,7 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
-from gc_education.ems_gc.report import csv_to_columns, _add_total_row
+from gc_education.ems_gc.report import csv_to_columns
 import pandas
 
 
