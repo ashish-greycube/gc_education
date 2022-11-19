@@ -16,6 +16,9 @@ def execute(filters=None):
     data = [
         d for d in data if isinstance(d, dict) and d.get("outstanding_amount", 0) > 0
     ]
+    # fix for add_total_row: if i >= len(row):
+    for row in data:
+        row.update({str(x): x for x in range(len(columns) - len(row) + 1)})
 
     add_total_row(data, columns)
     return columns, data

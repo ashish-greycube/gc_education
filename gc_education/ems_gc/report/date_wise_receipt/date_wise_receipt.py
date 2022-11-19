@@ -17,6 +17,10 @@ def execute(filters=None):
         col for col in columns if not dict(col).get("fieldname") == "outstanding_amount"
     ] + get_columns()
 
+    # fix for add_total_row: if i >= len(row):
+    for row in data:
+        row.update({str(x): x for x in range(len(columns) - len(row) + 1)})
+
     add_total_row(data, columns)
     return columns, data
 

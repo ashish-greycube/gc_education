@@ -4,6 +4,7 @@
 import frappe
 from gc_education.ems_gc.report import csv_to_columns
 import pandas
+from frappe.desk.query_report import add_total_row
 
 
 def execute(filters=None):
@@ -62,12 +63,12 @@ def get_data(filters):
         columns=["fees_category"],
         values=["amount"],
         fill_value=0,
-        margins=True,
+        margins=False,
         margins_name="Total",
         aggfunc="sum",
         dropna=True,
     )
-    df1.drop(index="Total", axis=0)
+    # df1.drop(index="Total", axis=0)
     df1.columns = df1.columns.to_series().str[1]
     df2 = df1.reset_index()
 
@@ -136,6 +137,12 @@ def get_data(filters):
     for d in df4.to_dict("r"):
         out.append({k: v for k, v in d.items() if v})
     out[-1]["bold"] = 1
+
+    # fix for add_total_row: if i >= len(row):
+    for row in out:
+        row.update({str(x): x for x in range(len(columns) - len(row) + 1)})
+
+    add_total_row(out, columns)
 
     return columns, out
 

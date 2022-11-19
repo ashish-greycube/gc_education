@@ -43,6 +43,10 @@ def execute(filters=None):
     if not filters.get("show_pending_student_count"):
         columns[5:5] = [d for d in _columns if isinstance(d, dict)]
 
+    # fix for add_total_row: if i >= len(row):
+    for row in out:
+        row.update({str(x): x for x in range(len(columns) - len(row) + 1)})
+
     add_total_row(out, columns)
     return columns, out
 
