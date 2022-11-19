@@ -28,6 +28,15 @@ def after_migrate(**args):
                 insert_after="branch",
             ),
         ],
+        "Fees": [
+            dict(
+                fieldtype="Data",
+                fieldname="payment_url_cf",
+                label="Payment Url",
+                read_only=1,
+                hidden=1,
+            ),
+        ],
     }
     create_custom_fields(custom_fields)
     frappe.db.commit()  # to avoid implicit-commit errors

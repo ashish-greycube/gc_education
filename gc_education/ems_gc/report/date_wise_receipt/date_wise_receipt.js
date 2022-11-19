@@ -11,14 +11,14 @@ frappe.query_reports["Date-wise Receipt"] = {
     ems_gc.report_filters["batch"],
     {
       fieldname: "from_date",
-      label: __("From Date (Fees Due Date)"),
+      label: __("From Date (Payment Posting Date)"),
       fieldtype: "Date",
       default: frappe.datetime.get_today(),
       reqd: 1,
     },
     {
       fieldname: "to_date",
-      label: __("To Date (Fees Due Date)"),
+      label: __("To Date (Payment Posting Date)"),
       fieldtype: "Date",
       default: frappe.datetime.get_today(),
       reqd: 1,

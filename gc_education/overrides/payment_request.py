@@ -160,3 +160,19 @@ class GCPaymentRequest(PaymentRequest):
         )
 
         return payment_entry
+
+    def on_submit(self):
+        """set payment url in Fees to send Whatsapp notification"""
+        super(GCPaymentRequest, self).on_submit()
+        if self.payment_url:
+            if self.reference_doctype == "Fees":
+                frappe.db.set_value(
+                    "Fees", self.reference_name, "payment_url_cf", self.payment_url
+                )
+
+    def set_as_cancelled(self):
+        """unset payment url in Fees."""
+        super(GCPaymentRequest, self).set_as_cancelled()
+        if self.reference_doctype == "Fees":
+            frappe.db.set_value("Fees", self.reference_name, "payment_url_cf", None)
+            frappe.db.commit()
