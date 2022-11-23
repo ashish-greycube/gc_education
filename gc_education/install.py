@@ -35,6 +35,7 @@ def after_migrate(**args):
                 label="Payment Url",
                 read_only=1,
                 hidden=1,
+                translatable=0,
             ),
         ],
     }

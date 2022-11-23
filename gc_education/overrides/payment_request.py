@@ -166,8 +166,10 @@ class GCPaymentRequest(PaymentRequest):
         super(GCPaymentRequest, self).on_submit()
         if self.payment_url:
             if self.reference_doctype == "Fees":
-                frappe.db.set_value(
-                    "Fees", self.reference_name, "payment_url_cf", self.payment_url
+                frappe.enqueue(
+                    set_payment_url_in_fees,
+                    docname=self.reference_name,
+                    payment_url=self.payment_url,
                 )
 
     def set_as_cancelled(self):
@@ -176,3 +178,7 @@ class GCPaymentRequest(PaymentRequest):
         if self.reference_doctype == "Fees":
             frappe.db.set_value("Fees", self.reference_name, "payment_url_cf", None)
             frappe.db.commit()
+
+
+def set_payment_url_in_fees(docname, payment_url):
+    frappe.db.set_value("Fees", docname, "payment_url_cf", payment_url)
