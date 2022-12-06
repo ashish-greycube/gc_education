@@ -15,23 +15,22 @@ def execute(filters=None):
 def get_data(filters):
     data = frappe.db.sql(
         """
-	select 
-		tf.academic_year , tf.academic_term , tfs.program , tf.name fees,
-		tf.student , tf.student_name , tf.grand_total , 
-		tf.branch , tf.cost_center , tsg.batch division , 
-        ts.student_mobile_number , tsgs.group_roll_number , ts.g_r_number ,
-        tf.posting_date , tf.due_date ,
-        tfc.fees_category , tfc.amount , tfc.description 
-	from `tabFee Schedule` tfs 
-    inner join `tabProgram` tpr on tpr.name = tfs.program
-	inner join `tabFee Schedule Student Group` tfssg on tfssg.parent = tfs.name
-	inner join `tabStudent Group` tsg on tsg.name = tfssg.student_group 
-	inner JOIN tabFees tf on tf.fee_schedule = tfs.name and tf.docstatus = 1
-    inner join `tabFee Component` tfc on tfc.parent = tf.name
-    inner join tabStudent ts on ts.name = tf.student
-    inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = ts.name 
+        select 
+	        tf.academic_year , tf.academic_term , tf.name fees,
+	        tf.posting_date , tf.due_date ,
+			tf.student , tf.student_name , tf.grand_total , 
+			tf.branch , tf.cost_center , 
+			ts.g_r_number , ts.student_mobile_number , 
+			tfc.fees_category , tfc.amount , tfc.description ,
+			tsg.batch division, tsg.program , tsgs.group_roll_number  from tabFees tf
+        inner join tabStudent ts on ts.name = tf.student
+        inner join `tabFee Component` tfc on tfc.parent = tf.name
+        left join `tabStudent Group Student` tsgs on tsgs.student = ts.name
+        left join `tabStudent Group` tsg on tsg.name = tsgs.parent 
+        	and tsg.academic_year = tf.academic_year 
+        	and tsg.academic_term = tf.academic_term 
     {cond}
-    order by tfs.program , tsg.batch , tsgs.group_roll_number
+    order by tsg.program , tsg.batch , tsgs.group_roll_number
     """.format(
             cond=get_conditions(filters)
         ),
