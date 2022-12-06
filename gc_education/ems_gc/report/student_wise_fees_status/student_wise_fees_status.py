@@ -22,13 +22,15 @@ def get_data(filters):
 			tf.branch , tf.cost_center , 
 			ts.g_r_number , ts.student_mobile_number , 
 			tfc.fees_category , tfc.amount , tfc.description ,
-			tsg.batch division, tsg.program , tsgs.group_roll_number  from tabFees tf
+			tsg.batch division, tsg.program , tsgs.group_roll_number , tp.department
+			from tabFees tf
         inner join tabStudent ts on ts.name = tf.student
         inner join `tabFee Component` tfc on tfc.parent = tf.name
         left join `tabStudent Group Student` tsgs on tsgs.student = ts.name
         left join `tabStudent Group` tsg on tsg.name = tsgs.parent 
         	and tsg.academic_year = tf.academic_year 
         	and tsg.academic_term = tf.academic_term 
+        left join tabProgram tp on tp.name = tsg.program
     {cond}
     order by tsg.program , tsg.batch , tsgs.group_roll_number
     """.format(
@@ -167,7 +169,7 @@ def get_conditions(filters):
         # to prevent SQL Injection
         programs = frappe.get_list("Program", pluck="name")
         conditions.append(
-            "tfs.program in ({})".format(
+            "tsg.program in ({})".format(
                 ",".join(["'%s'" % d for d in lst if d in programs])
             )
         )
@@ -175,7 +177,7 @@ def get_conditions(filters):
         # to prevent SQL Injection
         names = frappe.get_list("Department", pluck="name")
         conditions.append(
-            "tpr.department in ({})".format(
+            "tp.department in ({})".format(
                 ",".join(["'%s'" % d for d in filters.department if d in names])
             )
         )
