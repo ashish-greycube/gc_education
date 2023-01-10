@@ -5,6 +5,11 @@
 import frappe
 from frappe.email.doctype.notification.notification import evaluate_alert
 
+from erpnext.accounts.doctype.payment_request.payment_request import (
+    get_gateway_details,
+    get_dummy_message,
+)
+
 
 def validate_student_applicant(doc, method):
     for d in ["Father", "Mother"]:
@@ -62,3 +67,30 @@ def on_update_payment_ledger_entry(doc, method):
                 )
             except Exception:
                 pass
+
+
+def validate_payment_request(doc, method):
+    """set gateway account based on Branch for Fees."""
+    if not doc.reference_doctype == "Fees":
+        return
+    for d in frappe.db.sql(
+        """
+        select 
+            tb.payment_gateway_account_cf payment_gateway_account , mode_of_payment_cf
+        from tabFees tf 
+        inner join tabBranch tb on tb.name = tf.branch 
+        where tf.name = %s
+    """,
+        (doc.reference_name,),
+        as_dict=True,
+    ):
+        d["order_type"] = ""
+        gateway_account = get_gateway_details(d)
+        doc.payment_gateway_account = gateway_account.get("name")
+        doc.payment_gateway = gateway_account.get("payment_gateway")
+        doc.payment_account = gateway_account.get("payment_account")
+        doc.payment_channel = gateway_account.get("payment_channel")
+        doc.message = (
+            gateway_account.get("message")
+            or get_dummy_message(frappe.get_doc("Fees", doc.reference_name)),
+        )

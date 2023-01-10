@@ -38,6 +38,14 @@ def after_migrate(**args):
                 translatable=0,
             ),
         ],
+        "Program": [
+            dict(
+                fieldtype="Int",
+                fieldname="sort_order_cf",
+                label="Sort Order",
+                insert_after="description",
+            ),
+        ],
     }
     create_custom_fields(custom_fields)
     frappe.db.commit()  # to avoid implicit-commit errors

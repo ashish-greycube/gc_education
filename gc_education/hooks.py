@@ -112,6 +112,9 @@ doc_events = {
     "Payment Ledger Entry": {
         "on_update": "gc_education.ems_gc.controllers.doc_events.on_update_payment_ledger_entry"
     },
+    "Payment Request": {
+        "validate": "gc_education.ems_gc.controllers.doc_events.validate_payment_request"
+    },
 }
 
 # Scheduled Tasks
@@ -146,7 +149,7 @@ doc_events = {
 override_whitelisted_methods = {
     # "frappe.desk.doctype.event.event.get_events": "gc_education.event.get_events"
     "erpnext.accounts.doctype.payment_entry.payment_entry.get_payment_entry": "gc_education.overrides.override_whitelisted.get_payment_entry",
-    "erpnext.accounts.doctype.payment_request.payment_request.make_payment_request": "gc_education.overrides.override_whitelisted.make_payment_request",
+    # "erpnext.accounts.doctype.payment_request.payment_request.make_payment_request": "gc_education.overrides.override_whitelisted.make_payment_request",
 }
 #
 # each overriding function accepts a `data` argument;
