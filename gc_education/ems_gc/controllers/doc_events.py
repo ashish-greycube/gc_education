@@ -90,7 +90,6 @@ def validate_payment_request(doc, method):
         doc.payment_gateway = gateway_account.get("payment_gateway")
         doc.payment_account = gateway_account.get("payment_account")
         doc.payment_channel = gateway_account.get("payment_channel")
-        doc.message = (
-            gateway_account.get("message")
-            or get_dummy_message(frappe.get_doc("Fees", doc.reference_name)),
+        doc.message = gateway_account.get("message") or get_dummy_message(
+            frappe.get_doc("Fees", doc.reference_name)
         )
