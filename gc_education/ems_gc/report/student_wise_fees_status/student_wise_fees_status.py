@@ -22,7 +22,8 @@ def get_data(filters):
 			tf.branch , tf.cost_center , 
 			ts.g_r_number , ts.student_mobile_number , 
 			tfc.fees_category , tfc.amount , tfc.description ,
-			tsg.batch division, tsg.program , tsgs.group_roll_number , tp.department
+			tsg.batch division, tsg.program , tsgs.group_roll_number , tp.department ,
+            if(tp.sort_order_cf,tp.sort_order_cf,ascii(tp.name)*100) sort_order
 			from tabFees tf
         inner join tabStudent ts on ts.name = tf.student
         inner join `tabFee Component` tfc on tfc.parent = tf.name
@@ -32,7 +33,7 @@ def get_data(filters):
         	and tsg.academic_term = tf.academic_term 
         left join tabProgram tp on tp.name = tsg.program
     {cond}
-    order by tsg.program , tsg.batch , tsgs.group_roll_number
+    order by sort_order , tsg.program , tsg.batch , tsgs.group_roll_number
     """.format(
             cond=get_conditions(filters)
         ),
@@ -47,6 +48,7 @@ def get_data(filters):
     df1 = pandas.pivot_table(
         df,
         index=[
+            "sort_order",
             "academic_year",
             "academic_term",
             "program",
@@ -71,6 +73,8 @@ def get_data(filters):
     )
     # df1.drop(index="Total", axis=0)
     df1.columns = df1.columns.to_series().str[1]
+    df1.sort_index()
+
     df2 = df1.reset_index()
 
     columns = get_columns()

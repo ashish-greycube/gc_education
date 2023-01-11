@@ -24,14 +24,15 @@ def get_data(filters):
             when ts.enabled = 1 then 'Enabled' 
             when ts.date_of_leaving is not null and ts.date_of_leaving > %(as_on_date)s then 'Enabled'
             else 'Disabled' end student_status ,
-        ts.leaving_certificate_number , tsg.name student_group , tpe.name program_enrollment
+        ts.leaving_certificate_number , tsg.name student_group , tpe.name program_enrollment ,
+        if(tpr.sort_order_cf=0,10000,tpr.sort_order_cf) sort_order
     from tabStudent ts 
     inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
     inner join `tabProgram` tpr on tpr.name = tpe.program
     inner join `tabStudent Group` tsg on tsg.program = tpe.program and tsg.academic_term = tpe.academic_term 
     inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = ts.name 
     {cond}
-    order by tpe.program , tpe.student_batch_name , tsgs.group_roll_number , ts.g_r_number 
+    order by sort_order , tpe.student_batch_name , tsgs.group_roll_number , ts.g_r_number 
     """.format(
             cond=get_conditions(filters)
         ),

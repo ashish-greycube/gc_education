@@ -16,7 +16,8 @@ def get_data(filters):
         """
     select 
         ts.name , ts.religion , ts.gender , tpe.program class, tpe.student_batch_name division ,
-        tpe.academic_year , tpe.academic_term
+        tpe.academic_year , tpe.academic_term , 
+        if(tpr.sort_order_cf,tpr.sort_order_cf,ascii(tpr.name)*100) sort_order
     from tabStudent ts 
     inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 	
     inner join `tabProgram` tpr on tpr.name = tpe.program
@@ -32,14 +33,10 @@ def get_data(filters):
         return [], []
 
     df = pandas.DataFrame.from_records(data)
+    print(df)
     df1 = pandas.pivot_table(
         df,
-        index=[
-            "academic_year",
-            "academic_term",
-            "class",
-            "division",
-        ],
+        index=["sort_order", "academic_year", "academic_term", "class", "division"],
         values=["name"],
         columns=["religion", "gender"],
         fill_value=0,
@@ -49,6 +46,9 @@ def get_data(filters):
         dropna=True,
     )
     df1.drop(index="Total", axis=0)
+
+    df1.sort_index()
+
     df1.columns = (
         df1.columns.to_series().str[1] + " (" + df1.columns.to_series().str[2] + ")"
     )

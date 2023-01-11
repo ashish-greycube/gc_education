@@ -59,7 +59,8 @@ intr as (
         fn2.alternate_number  g2_alternate_number,
         fn2.mobile_number  g2_mobile_number,
         fn2.email_address  g2_email_address,
-        intr2.interests g2_interests
+        intr2.interests g2_interests ,
+        if(tpr.sort_order_cf,tpr.sort_order_cf,ascii(tpr.name)*100) sort_order
     from tabStudent ts 
     inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
     inner join `tabProgram` tpr on tpr.name = tpe.program
@@ -70,7 +71,7 @@ intr as (
     left outer join intr intr1 on intr1.parent = fn.guardian
     left outer join intr intr2 on intr2.parent = fn2.guardian
     {conditions}
-    order by tpe.program , tpe.student_batch_name , tsgs.group_roll_number , ts.g_r_number 
+    order by sort_order , tpe.program , tpe.student_batch_name , tsgs.group_roll_number , ts.g_r_number 
     """.format(
             conditions=get_conditions(filters)
         ),

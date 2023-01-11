@@ -29,13 +29,14 @@ def get_data(filters):
         """
 		select 
 			academic_year , academic_term , 
-			program class, batch division, class_teacher_cf , te.name employee
+			program class, batch division, class_teacher_cf , te.name employee ,
+            if(tpr.sort_order_cf,tpr.sort_order_cf,ascii(tpr.name)*100) sort_order
 		from `tabStudent Group` tsg 
 		inner join tabInstructor ti on ti.name = tsg.class_teacher_cf 
 		inner join tabEmployee te on te.name = ti.employee 
         inner join `tabProgram` tpr on tpr.name = tsg.program
     {cond}
-		order by program , batch 
+		order by sort_order , batch 
     """.format(
             cond=get_conditions(filters)
         ),

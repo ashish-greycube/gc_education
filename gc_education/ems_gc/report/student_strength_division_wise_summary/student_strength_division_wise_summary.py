@@ -26,7 +26,8 @@ def get_data(filters):
     data = frappe.db.sql(
         """
 	select 
-		t.academic_year , t.academic_term , t.class , t.class_division , count(*) strength
+		t.academic_year , t.academic_term , t.class , t.class_division , 
+        t.sort_order , count(*) strength
 	from 
     (
 		select 
@@ -35,7 +36,8 @@ def get_data(filters):
         concat( tpe.program, ' - ', tpe.student_batch_name) class_division, 
         ts.g_r_number , tsgs.group_roll_number , ts.title ,
         case tsgs.active when 1 then 'Active' else 'Inactive' end class_status ,
-        case tsg.disabled when 1 then 'Disabled' else 'Enabled' end status
+        case tsg.disabled when 1 then 'Disabled' else 'Enabled' end status ,
+        if(tpr.sort_order_cf,tpr.sort_order_cf,ascii(tpr.name)*100) sort_order
 		from tabStudent ts 
 		inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
         inner join `tabProgram` tpr on tpr.name = tpe.program
@@ -45,8 +47,8 @@ def get_data(filters):
 			and tsgs.student = ts.name 
 		{cond}
 	) t
-	group by academic_year , academic_term , class , class_division
-    order by class , division 
+	group by academic_year , academic_term , sort_order, class , class_division
+    order by sort_order , class , division 
     """.format(
             cond=get_conditions(filters)
         ),
