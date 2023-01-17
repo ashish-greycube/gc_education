@@ -30,7 +30,7 @@ def get_payment_entry(
     pe = _get_payment_entry(
         dt, dn, party_amount, bank_account, bank_amount, party_type, payment_type
     )
-    if not dt in "Fees":
+    if not dt in ["Fees"]:
         return pe
     pe.party_name = frappe.db.get_value(
         "Student", frappe.db.get_value("Fees", dn, "student"), "title"
