@@ -54,7 +54,7 @@ class EMSStudentCertificate(Document):
         set_if_blank("caste", student_doc.caste)
         set_if_blank("category", student_doc.caste_category)
 
-        self.set("title", "Kumar" if student_doc.gender == "Male" else "Kumari")
+        self.set("salutation", "Kumar" if student_doc.gender == "Male" else "Kumari")
 
         _, data = class_list(
             filters=frappe._dict(
