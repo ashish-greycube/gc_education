@@ -32,7 +32,7 @@ def get_data(filters):
         	and tsg.academic_year = tf.academic_year 
         	and tsg.academic_term = tf.academic_term 
         left join tabProgram tp on tp.name = tsg.program
-    {cond}
+        where tf.docstatus = 1 {cond}
     order by sort_order , tsg.program , tsg.batch , tsgs.group_roll_number
     """.format(
             cond=get_conditions(filters)
@@ -185,7 +185,7 @@ def get_conditions(filters):
                 ",".join(["'%s'" % d for d in filters.department if d in names])
             )
         )
-    return conditions and " where " + " and ".join(conditions) or ""
+    return conditions and " and " + " and ".join(conditions) or ""
 
 
 def get_columns():
