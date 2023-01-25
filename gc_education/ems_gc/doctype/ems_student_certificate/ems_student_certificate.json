@@ -13,6 +13,8 @@
   "salutation",
   "gender",
   "date_of_birth",
+  "first_academic_year",
+  "last_academic_year",
   "column_break_8",
   "mothers_name",
   "fathers_name",
@@ -347,11 +349,21 @@
    "fieldname": "salutation",
    "fieldtype": "Data",
    "label": "Title"
+  },
+  {
+   "fieldname": "first_academic_year",
+   "fieldtype": "Data",
+   "label": "First Academic Year"
+  },
+  {
+   "fieldname": "last_academic_year",
+   "fieldtype": "Data",
+   "label": "Last Academic Year"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-01-20 12:14:04.389511",
+ "modified": "2023-01-24 12:40:57.004701",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS Student Certificate",
