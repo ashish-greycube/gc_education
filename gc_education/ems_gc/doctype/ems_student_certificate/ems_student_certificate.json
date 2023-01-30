@@ -108,12 +108,12 @@
    "set_only_once": 1
   },
   {
-   "default": "AISSE",
+   "default": "SSE",
    "depends_on": "eval:doc.certificate_type == 'First Attempt Certificate'",
    "fieldname": "student_board",
    "fieldtype": "Select",
    "label": "Student Board",
-   "options": "AISSCE\nAISSE"
+   "options": "SSCE\nSSE"
   },
   {
    "fetch_from": "student.student_name",
@@ -363,7 +363,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-01-24 12:40:57.004701",
+ "modified": "2023-01-30 17:38:01.485697",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS Student Certificate",
