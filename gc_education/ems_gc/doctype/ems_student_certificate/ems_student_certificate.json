@@ -109,7 +109,6 @@
   },
   {
    "default": "SSE",
-   "depends_on": "eval:doc.certificate_type == 'First Attempt Certificate'",
    "fieldname": "student_board",
    "fieldtype": "Select",
    "label": "Student Board",
@@ -257,6 +256,7 @@
    "label": "Father's Name"
   },
   {
+   "fetch_from": "student.proof_of_date_of_birth_cf",
    "fieldname": "proof_of_date_of_birth",
    "fieldtype": "Data",
    "label": "Proof of Date of Birth"
@@ -303,6 +303,7 @@
    "label": "Last Enrolled Class In Words"
   },
   {
+   "fetch_from": "student.joining_date",
    "fieldname": "first_enrolled_date",
    "fieldtype": "Date",
    "label": "First Enrolled Date"
@@ -363,7 +364,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-01-30 17:38:01.485697",
+ "modified": "2023-01-31 11:54:39.394288",
  "modified_by": "Administrator",
  "module": "EMS GC",
  "name": "EMS Student Certificate",
