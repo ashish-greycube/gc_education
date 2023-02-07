@@ -13,6 +13,15 @@ def execute(filters=None):
     # columns, data = get_columns(), get_data(filters)
     columns, data = _execute(filters)
     data = data[:-1]
+    payment = get_data(filters)
+    for d in data:
+        for p in filter(
+            lambda x: x.get("student") == d.get("student")
+            and x.get("academic_term") == d.get("academic_term"),
+            payment,
+        ):
+            d.update(p)
+
     columns = [
         col for col in columns if not dict(col).get("fieldname") == "outstanding_amount"
     ] + get_columns()
@@ -48,7 +57,7 @@ def get_data(filters):
 			tpe.name ,
 			tpe.posting_date , tpe.paid_amount , tpe.company , 
 			tpe.branch , tpe.mode_of_payment , tpe.party ,
-			tpe.reference_no , tpe.reference_date , tpe.cost_center , 
+			tpe.reference_no , tpe.reference_date , tpe.cost_center , tsgs.student ,
 			tsgs.group_roll_number , enr.program class, enr.student_batch_name division ,
 			enr.academic_year , enr.academic_term , enr.student_name ,
 			tpe.bank_name bank

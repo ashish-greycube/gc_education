@@ -119,15 +119,14 @@ def get_data(filters):
             on=["fees"],
             how="left",
         )
-        nan_columns = [
-            "fees",
-            "paid_amount",
-            "payment_entry",
-            "posting_date",
-            "reference_no",
-            "reference_date",
-        ]
-
+        # nan_columns = [
+        #     "fees",
+        #     "paid_amount",
+        #     "payment_entry",
+        #     "posting_date",
+        #     "reference_no",
+        #     "reference_date",
+        # ]
         # df4[nan_columns] = df4[nan_columns].fillna(0)
         df4.fillna(0, inplace=True)
         df4["outstanding_amount"] = df4.apply(
