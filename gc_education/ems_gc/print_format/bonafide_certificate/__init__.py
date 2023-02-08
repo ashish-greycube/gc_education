@@ -22,6 +22,7 @@ def get_print_context(**args):
             ROW_NUMBER() OVER(PARTITION BY student order by enrollment_date) rn, 
             student , academic_year , program 
             from `tabProgram Enrollment` tpe
+            where tpe.docstatus = 1
         ),
         fn2 as
         (
@@ -29,6 +30,7 @@ def get_print_context(**args):
             ROW_NUMBER() OVER(PARTITION BY student order by enrollment_date desc) rn, 
             student , academic_year , program 
             from `tabProgram Enrollment` tpe
+            where tpe.docstatus = 1
         )
         select 
             name , title , g_r_number , caste , date_of_birth , birth_place , birth_state ,

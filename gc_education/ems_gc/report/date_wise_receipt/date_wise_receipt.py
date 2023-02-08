@@ -62,7 +62,7 @@ def get_data(filters):
 			enr.academic_year , enr.academic_term , enr.student_name ,
 			tpe.bank_name bank
 		from `tabPayment Entry` tpe
-			inner join `tabProgram Enrollment` enr on enr.student = tpe.party
+			inner join `tabProgram Enrollment` enr on enr.docstatus = 1 and enr.student = tpe.party
             inner join `tabProgram` tpr on tpr.name = enr.program
 			inner join `tabStudent Group` tsg on tsg.program = enr.program and tsg.academic_term = enr.academic_term 
 			inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = enr.student

@@ -71,6 +71,7 @@ def get_data(filters):
 
 def get_conditions(filters):
     conditions = []
+    conditions.append(" tpe.docstatus = 1 ")
     if filters.get("academic_year"):
         conditions.append(" tpe.academic_year = %(academic_year)s")
     if filters.get("academic_term"):

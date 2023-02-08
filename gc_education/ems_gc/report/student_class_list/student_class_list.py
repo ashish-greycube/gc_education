@@ -27,7 +27,7 @@ def get_data(filters):
         ts.leaving_certificate_number , tsg.name student_group , tpe.name program_enrollment ,
         if(tpr.sort_order_cf=0,10000,tpr.sort_order_cf) sort_order
     from tabStudent ts 
-    inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
+    inner join `tabProgram Enrollment` tpe on tpe.docstatus = 1 and tpe.student = ts.name 
     inner join `tabProgram` tpr on tpr.name = tpe.program
     inner join `tabStudent Group` tsg on tsg.program = tpe.program and tsg.academic_term = tpe.academic_term 
     inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = ts.name 

@@ -44,6 +44,7 @@ def get_data(filters):
 					ROW_NUMBER() over(PARTITION BY student order by enrollment_date) rn, 
 					program , student , enrollment_date
 				from `tabProgram Enrollment` tpe
+                where tpe.docstatus = 1 
 			),
 			fn2 as
 			(
@@ -51,6 +52,7 @@ def get_data(filters):
 					ROW_NUMBER() over(PARTITION BY student order by enrollment_date desc) rn, 
 					program , student , enrollment_date 
 				from `tabProgram Enrollment` tpe
+                where tpe.docstatus = 1 
 			)
 			select ts.name , 
 			concat_ws('\n',ts.title , ts.aadhaar_number ) name_aadhar,

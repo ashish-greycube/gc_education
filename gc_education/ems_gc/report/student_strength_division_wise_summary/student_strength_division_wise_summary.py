@@ -39,7 +39,7 @@ def get_data(filters):
         case tsg.disabled when 1 then 'Disabled' else 'Enabled' end status ,
         if(tpr.sort_order_cf,tpr.sort_order_cf,ascii(tpr.name)*100) sort_order
 		from tabStudent ts 
-		inner join `tabProgram Enrollment` tpe on tpe.student = ts.name 
+		inner join `tabProgram Enrollment` tpe on tpe.docstatus = 1 and tpe.student = ts.name 
         inner join `tabProgram` tpr on tpr.name = tpe.program
 		inner join `tabStudent Group` tsg on tsg.program = tpe.program 
 			and tsg.academic_term = tpe.academic_term 

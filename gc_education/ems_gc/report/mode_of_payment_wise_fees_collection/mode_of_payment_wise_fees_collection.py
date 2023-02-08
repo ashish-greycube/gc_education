@@ -22,7 +22,7 @@ def get_data(filters):
             enr.program class, enr.student_batch_name division ,
             enr.academic_year , enr.academic_term 
         from `tabPayment Entry` tpe
-            inner join `tabProgram Enrollment` enr on enr.student = tpe.party
+            inner join `tabProgram Enrollment` enr on enr.docstatus = 1 and enr.student = tpe.party
     {cond}
     """.format(
             cond=get_conditions(filters)
