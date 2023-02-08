@@ -18,7 +18,7 @@ def get_data(filters):
     select 
         tpe.academic_year , tpe.academic_term , 
         tpe.program , tpe.student_batch_name , 
-        ts.g_r_number , tsgs.group_roll_number , ts.title ,
+        ts.g_r_number , tsgs.group_roll_number , ts.student_name ,
         case tsgs.active when 1 then 'Active' else 'Inactive' end class_status ,
         case 
             when ts.enabled = 1 then 'Enabled' 
@@ -103,7 +103,7 @@ def get_columns():
         Division,student_batch_name,,,190
         GR No.,g_r_number,,,120
         Roll No.,group_roll_number,,Int,120
-        Name,title,,,290
+        Name,student_name,,,290
         Student Status,student_status,,,120
         Class Status,class_status,,,120
         LC Number,leaving_certificate_number,,,130
