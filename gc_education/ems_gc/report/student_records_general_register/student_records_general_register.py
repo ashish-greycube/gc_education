@@ -55,7 +55,7 @@ def get_data(filters):
                 where tpe.docstatus = 1 
 			)
 			select ts.name , 
-			concat_ws('\n',ts.title , ts.aadhaar_number ) name_aadhar,
+			concat_ws('\n',ts.student_name , ts.aadhaar_number ) name_aadhar,
 			concat_ws('\n',pa.guardian_name, ma.guardian_name) father_mother ,
 			CONCAT_WS('\n',ts.religion , concat_ws(', ',ts.caste_category , ts.caste)) religion_caste ,
 			ts.date_of_birth , ts.birth_place_name , joining_date , 

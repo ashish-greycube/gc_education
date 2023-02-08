@@ -33,7 +33,7 @@ def get_print_context(**args):
             where tpe.docstatus = 1
         )
         select 
-            name , title , g_r_number , caste , date_of_birth , birth_place , birth_state ,
+            name , student_name , title , g_r_number , caste , date_of_birth , birth_place , birth_state ,
             fn1.academic_year from_year , fn1.program from_program ,
             fn2.academic_year to_year , fn2.program to_program
         from tabStudent ts

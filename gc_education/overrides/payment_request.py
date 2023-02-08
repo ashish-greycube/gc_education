@@ -156,7 +156,7 @@ class GCPaymentRequest(PaymentRequest):
 
         # db_set party_name as frappe sets it to name by default
         payment_entry.db_set(
-            "party_name", frappe.db.get_value("Student", self.party, "title")
+            "party_name", frappe.db.get_value("Student", self.party, "student_name")
         )
 
         return payment_entry
