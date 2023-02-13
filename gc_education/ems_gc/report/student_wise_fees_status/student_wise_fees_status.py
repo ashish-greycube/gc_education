@@ -91,7 +91,7 @@ def get_data(filters):
         """
         select 
             tper.reference_name fees , 
-            sum(tper.allocated_amount) paid_amount ,
+            coalesce(sum(tper.allocated_amount),0) paid_amount ,
 			tpe.name payment_entry,
             tpe.mode_of_payment ,
 			tpe.posting_date , 
