@@ -22,6 +22,9 @@ def execute(filters=None):
         ):
             d.update(p)
 
+    for d in data:
+        d.setdefault("paid_amount", 0)
+
     columns = [
         col for col in columns if not dict(col).get("fieldname") == "outstanding_amount"
     ] + get_columns()
@@ -55,7 +58,7 @@ def get_data(filters):
         """
 		select 
 			tpe.name ,
-			tpe.posting_date , tpe.paid_amount , tpe.company , 
+			tpe.posting_date , coalesce(tpe.paid_amount,0) paid_amount, tpe.company , 
 			tpe.branch , tpe.mode_of_payment , tpe.party ,
 			tpe.reference_no , tpe.reference_date , tpe.cost_center , tsgs.student ,
 			tsgs.group_roll_number , enr.program class, enr.student_batch_name division ,

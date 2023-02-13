@@ -20,7 +20,7 @@ def validate_student_applicant(doc, method):
         guardian = frappe.get_doc(
             {
                 "doctype": "Guardian",
-                "designation": "Father",
+                "designation": d,
                 "annual_income": doc.get(f"{relation}_annual_income_cf"),
                 "education": doc.get(f"{relation}_education_cf"),
                 "email_address": doc.get(f"{relation}_mail_cf"),

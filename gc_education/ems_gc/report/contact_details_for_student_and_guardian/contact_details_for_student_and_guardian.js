@@ -2,14 +2,14 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-const copy_columns = [
-  "Student Mobile No",
-  "Student Email Id",
-  "Guardian1 Mobile No",
-  "Guardian1 Email Id",
-  "Guardian2 Mobile No",
-  "Guardian2 Email Id",
-];
+const copy_columns = {
+  "Student Mobile No": "student_mobile_no",
+  "Student Email Id": "student_email_id",
+  "Guardian1 Mobile No": "g1_mobile_number",
+  "Guardian1 Email Id": "g1_email_address",
+  "Guardian2 Mobile No": "g2_mobile_number",
+  "Guardian2 Email Id": "g2_email_address",
+};
 
 frappe.query_reports["Contact Details for Student and Guardian"] = {
   filters: [
@@ -22,7 +22,7 @@ frappe.query_reports["Contact Details for Student and Guardian"] = {
       label: "Copy Column",
       fieldname: "column_to_copy",
       fieldtype: "Select",
-      options: "\n" + copy_columns.join("\n"),
+      options: "\n" + Object.keys(copy_columns).join("\n"),
       on_change: function () {
         // do nothing
       },
@@ -36,7 +36,7 @@ frappe.query_reports["Contact Details for Student and Guardian"] = {
         frappe.throw("Please select the column to copy.");
       }
       let data = frappe.query_report.data.map((m) => {
-        return m[frappe.scrub(col) || null];
+        return m[copy_columns[col] || null];
       });
       data = data.filter((n) => n);
       frappe.utils.copy_to_clipboard(data);
