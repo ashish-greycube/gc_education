@@ -85,7 +85,7 @@ def get_data(filters):
         for col in df1.columns.to_list()
         if not col == "Total"
     ]
-    columns[9:9] = pivot_cols
+    columns[10:10] = pivot_cols
     # columns[-1]["label"] = "Total"
 
     payments = frappe.db.sql(
@@ -201,6 +201,7 @@ def get_columns():
         Name,student_name,,,250
         Quarter,description,,,130
         Due Date,due_date,Date,,120
+        Fees,fees,Link,Fees,130
 		Total Amount,grand_total,Currency,,130
 		Paid Amount,paid_amount,Currency,,130
 		Pending Amount,outstanding_amount,Currency,,130

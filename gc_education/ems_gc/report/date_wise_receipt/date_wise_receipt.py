@@ -27,7 +27,9 @@ def execute(filters=None):
         out.append(d)
 
     columns = [
-        col for col in columns if not dict(col).get("fieldname") == "outstanding_amount"
+        col
+        for col in columns
+        if not dict(col).get("fieldname") in ("outstanding_amount", "fees")
     ] + get_columns()
 
     add_total_row(out, columns)
