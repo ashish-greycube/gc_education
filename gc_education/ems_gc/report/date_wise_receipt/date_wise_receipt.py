@@ -50,6 +50,7 @@ def get_columns():
 		Cheque No.,reference_no,,,110
 		Cheque Dt.,reference_date,Date,,110
 		Bank,bank,,,130
+        Reference Name,fees_name,Link,Fees,120
     """
     )
 
@@ -72,7 +73,7 @@ def get_data(filters):
 			inner join `tabStudent Group` tsg on tsg.program = enr.program and tsg.academic_term = enr.academic_term 
 			inner join `tabStudent Group Student` tsgs on tsgs.parent = tsg.name and tsgs.student = enr.student
             left outer join `tabPayment Entry Reference` tper on tper.parent = tpe.name 
-                and tper.reference_doctype = 'Fees'
+                -- and tper.reference_doctype = 'Fees'
 		where tpe.payment_type = 'Receive' and tpe.docstatus = 1 {cond} 
 		order by posting_date , class , division 
     """.format(
