@@ -32,10 +32,11 @@ def get_data(filters):
         	and tsg.academic_year = tf.academic_year 
         	and tsg.academic_term = tf.academic_term 
         left join tabProgram tp on tp.name = tsg.program
-        where tf.docstatus = 1 {cond}
+        where tf.docstatus = 1 {cond} {additional_conditions}
     order by sort_order , tsg.program , tsg.batch , tsgs.group_roll_number
     """.format(
-            cond=get_conditions(filters)
+            cond=get_conditions(filters),
+            additional_conditions=filters.get("additional_conditions", ""),
         ),
         filters,
         as_dict=True,
