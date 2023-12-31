@@ -1,248 +1,271 @@
 {
- "charts": [],
- "content": "[{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Certificate\",\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"Student Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Fees Reports\",\"col\":4}},{\"type\":\"card\",\"data\":{\"card_name\":\"Payment Gateway\",\"col\":4}}]",
- "creation": "2022-09-11 10:23:58.070038",
- "docstatus": 0,
- "doctype": "Workspace",
- "for_user": "",
- "hide_custom": 1,
- "icon": "heart",
- "idx": 0,
- "label": "EMS GC",
- "links": [
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Student Certificate",
-   "link_count": 0,
-   "link_to": "EMS Student Certificate",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Fees Reports",
-   "link_count": 1,
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Student-wise Fees Status",
-   "link_count": 0,
-   "link_to": "Student-wise Fees Status",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Student-wise Pending Fees",
-   "link_count": 0,
-   "link_to": "Student-wise Pending Fees",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Division-wise Fees Status",
-   "link_count": 0,
-   "link_to": "Division-wise Fees Status",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Date-wise Receipt",
-   "link_count": 0,
-   "link_to": "Date-wise Receipt",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Mode of Payment wise Fees Collection",
-   "link_count": 0,
-   "link_to": "Mode Of Payment-wise Fees Collection",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Daily Fee Collection MIS",
-   "link_count": 0,
-   "link_to": "Daily Fee Collection MIS",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Student Reports",
-   "link_count": 8,
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Student Class List",
-   "link_count": 0,
-   "link_to": "Student Class List",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Caste Category-wise Summary",
-   "link_count": 0,
-   "link_to": "Caste Category-wise Summary",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Student Strength Division-Wise Summary",
-   "link_count": 0,
-   "link_to": "Student Strength Division-Wise Summary",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Religion-wise Summary",
-   "link_count": 0,
-   "link_to": "Religion-wise Summary",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Gender-wise Summary",
-   "link_count": 0,
-   "link_to": "Gender-wise Summary",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Class Teacher List",
-   "link_count": 0,
-   "link_to": "Class Teacher List",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "House-wise Summary",
-   "link_count": 0,
-   "link_to": "House-wise Summary",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Student Records General Register",
-   "link_count": 0,
-   "link_to": "Student Records General Register",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Contact Details for Student and Guardian",
-   "link_count": 0,
-   "link_to": "Contact Details for Student and Guardian",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Payment Gateway",
-   "link_count": 3,
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Razorpay Settings",
-   "link_count": 0,
-   "link_to": "Razorpay Settings",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Razorpay2 Settings",
-   "link_count": 0,
-   "link_to": "Razorpay2 Settings",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Payment Gateway Account",
-   "link_count": 0,
-   "link_to": "Payment Gateway Account",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  }
- ],
- "modified": "2022-09-28 16:25:10.670693",
- "modified_by": "Administrator",
- "module": "EMS GC",
- "name": "EMS GC",
- "owner": "Administrator",
- "parent_page": "",
- "public": 1,
- "quick_lists": [],
- "roles": [],
- "sequence_id": 36.0,
- "shortcuts": [
-  {
-   "color": "Green",
-   "doc_view": "List",
-   "label": "Certificate",
-   "link_to": "EMS Student Certificate",
-   "type": "DocType"
-  }
- ],
- "title": "EMS GC"
+    "charts": [],
+    "content": "[{\"id\":\"Xs7B8mBFPx\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Certificate\",\"col\":12}},{\"id\":\"dknLj_2MM8\",\"type\":\"card\",\"data\":{\"card_name\":\"Student Reports\",\"col\":4}},{\"id\":\"yjMPgLtyjT\",\"type\":\"card\",\"data\":{\"card_name\":\"Fees Reports\",\"col\":4}},{\"id\":\"s2caCzkzsU\",\"type\":\"card\",\"data\":{\"card_name\":\"Payment Gateway\",\"col\":4}}]",
+    "creation": "2022-09-11 10:23:58.070038",
+    "custom_blocks": [],
+    "docstatus": 0,
+    "doctype": "Workspace",
+    "for_user": "",
+    "hide_custom": 1,
+    "icon": "heart",
+    "idx": 0,
+    "is_hidden": 0,
+    "label": "EMS GC",
+    "links": [
+        {
+            "hidden": 0,
+            "is_query_report": 0,
+            "label": "Student Certificate",
+            "link_count": 0,
+            "link_to": "EMS Student Certificate",
+            "link_type": "DocType",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 0,
+            "label": "Fees Reports",
+            "link_count": 1,
+            "onboard": 0,
+            "type": "Card Break"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Student-wise Fees Status",
+            "link_count": 0,
+            "link_to": "Student-wise Fees Status",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Student-wise Pending Fees",
+            "link_count": 0,
+            "link_to": "Student-wise Pending Fees",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Division-wise Fees Status",
+            "link_count": 0,
+            "link_to": "Division-wise Fees Status",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Date-wise Receipt",
+            "link_count": 0,
+            "link_to": "Date-wise Receipt",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Mode of Payment wise Fees Collection",
+            "link_count": 0,
+            "link_to": "Mode Of Payment-wise Fees Collection",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Daily Fee Collection MIS",
+            "link_count": 0,
+            "link_to": "Daily Fee Collection MIS",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Contact Details for Student and Guardian",
+            "link_count": 0,
+            "link_to": "Contact Details for Student and Guardian",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 0,
+            "label": "Payment Gateway",
+            "link_count": 3,
+            "onboard": 0,
+            "type": "Card Break"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 0,
+            "label": "Razorpay Settings",
+            "link_count": 0,
+            "link_to": "Razorpay Settings",
+            "link_type": "DocType",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 0,
+            "label": "Razorpay2 Settings",
+            "link_count": 0,
+            "link_to": "Razorpay2 Settings",
+            "link_type": "DocType",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 0,
+            "label": "Payment Gateway Account",
+            "link_count": 0,
+            "link_to": "Payment Gateway Account",
+            "link_type": "DocType",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 0,
+            "label": "Student Reports",
+            "link_count": 10,
+            "onboard": 0,
+            "type": "Card Break"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Student Class List",
+            "link_count": 0,
+            "link_to": "Student Class List",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Caste Category-wise Summary",
+            "link_count": 0,
+            "link_to": "Caste Category-wise Summary",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Student Strength Division-Wise Summary",
+            "link_count": 0,
+            "link_to": "Student Strength Division-Wise Summary",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Religion-wise Summary",
+            "link_count": 0,
+            "link_to": "Religion-wise Summary",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Gender-wise Summary",
+            "link_count": 0,
+            "link_to": "Gender-wise Summary",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Class Teacher List",
+            "link_count": 0,
+            "link_to": "Class Teacher List",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "House-wise Summary",
+            "link_count": 0,
+            "link_to": "House-wise Summary",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Student Records General Register",
+            "link_count": 0,
+            "link_to": "Student Records General Register",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Contact Details for Student and Guardian",
+            "link_count": 0,
+            "link_to": "Contact Details for Student and Guardian",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        },
+        {
+            "hidden": 0,
+            "is_query_report": 1,
+            "label": "Admission Applicant Detail",
+            "link_count": 0,
+            "link_to": "Admission Applicant Detail",
+            "link_type": "Report",
+            "onboard": 0,
+            "type": "Link"
+        }
+    ],
+    "modified": "2023-12-31 16:11:46.448746",
+    "modified_by": "Administrator",
+    "module": "EMS GC",
+    "name": "EMS GC",
+    "number_cards": [],
+    "owner": "Administrator",
+    "parent_page": "",
+    "public": 1,
+    "quick_lists": [],
+    "roles": [],
+    "sequence_id": 36.0,
+    "shortcuts": [
+        {
+            "color": "Green",
+            "doc_view": "List",
+            "label": "Certificate",
+            "link_to": "EMS Student Certificate",
+            "type": "DocType"
+        }
+    ],
+    "title": "EMS GC"
 }

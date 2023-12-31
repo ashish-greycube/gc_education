@@ -98,9 +98,16 @@ def get_conditions(filters):
         conditions.append(" tsa.academic_year = %(academic_year)s")
     if filters.get("academic_term"):
         conditions.append(" tsa.academic_term = %(academic_term)s")
-    if filters.get("program"):
-        conditions.append(" tsa.program = %(program)s")
     if filters.get("applicant"):
         conditions.append(" tsa.name = %(applicant)s")
+    if filters.get("program"):
+        lst = filters.program
+        # to prevent SQL Injection
+        programs = frappe.get_list("Program", pluck="name")
+        conditions.append(
+            "tsa.program in ({})".format(
+                ",".join(["'%s'" % d for d in lst if d in programs])
+            )
+        )
 
     return conditions and " where " + " and ".join(conditions) or ""
