@@ -12,6 +12,7 @@ frappe.query_reports["Admission Applicant Detail"] = {
       label: __("Student Applicant"),
       fieldtype: "Link",
       options: "Student Applicant",
+      hidden: 1,
     },
   ],
 };
