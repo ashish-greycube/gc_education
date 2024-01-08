@@ -24,7 +24,7 @@ def get_data(filters):
             tg1.annual_income fathers_annual_income ,
             tg1.are_you_ex_student_of_this_school father_ex ,
             if(tg1.are_you_ex_student_of_this_school = 'Yes', 
-                tg1.year_of_admission_and_passing,'') fathers_ex ,
+                tg1.year_of_admission_and_passing,'No') fathers_ex ,
             tg1.education fathers_education ,
             tg1.mobile_number fathers_mobile_number ,
             -- mother
@@ -33,7 +33,7 @@ def get_data(filters):
             tg2.name_of_firm mothers_name_of_firm ,
             tg2.annual_income mothers_annual_income ,
             if(tg2.are_you_ex_student_of_this_school = 'Yes', 
-                tg2.year_of_admission_and_passing,'') mothers_ex ,
+                tg2.year_of_admission_and_passing,'No') mothers_ex ,
             tg2.education mothers_education ,
             tg2.mobile_number mothers_mobile_number ,
             sib.siblings
