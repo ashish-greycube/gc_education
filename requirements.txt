@@ -1,3 +1,4 @@
 # frappe -- https://github.com/frappe/frappe is installed via 'bench init'
 pandas~=1.4.4
 pendulum
+pymssql
