@@ -1,0 +1,105 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-02 20:51:34.064768",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sync_section",
+  "enable_sync",
+  "sync_time",
+  "column_break_jvxj",
+  "last_sync_date",
+  "connection_section",
+  "host",
+  "port",
+  "database",
+  "column_break_brbz",
+  "user",
+  "password"
+ ],
+ "fields": [
+  {
+   "fieldname": "sync_section",
+   "fieldtype": "Section Break",
+   "label": "Sync"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_sync",
+   "fieldtype": "Check",
+   "label": "Enable Sync"
+  },
+  {
+   "fieldname": "last_sync_date",
+   "fieldtype": "Datetime",
+   "label": "Last Sync Date"
+  },
+  {
+   "fieldname": "connection_section",
+   "fieldtype": "Section Break",
+   "label": "Connection"
+  },
+  {
+   "fieldname": "host",
+   "fieldtype": "Data",
+   "label": "Host"
+  },
+  {
+   "fieldname": "port",
+   "fieldtype": "Int",
+   "label": "Port"
+  },
+  {
+   "fieldname": "database",
+   "fieldtype": "Data",
+   "label": "Database"
+  },
+  {
+   "fieldname": "column_break_brbz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Data",
+   "label": "User"
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Data",
+   "label": "Password"
+  },
+  {
+   "fieldname": "column_break_jvxj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sync_time",
+   "fieldtype": "Time",
+   "label": "Sync Time"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-09-02 21:42:54.506966",
+ "modified_by": "Administrator",
+ "module": "EMS GC",
+ "name": "Matrix Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
