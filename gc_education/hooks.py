@@ -120,23 +120,26 @@ doc_events = {
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"gc_education.tasks.all"
-# 	],
-# 	"daily": [
-# 		"gc_education.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"gc_education.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"gc_education.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"gc_education.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+    "0 18 * * *": [
+        "gc_education.ems_gc.controllers.attendance.sync_user_attendance_events",
+    ],
+    # 	"all": [
+    # 		"gc_education.tasks.all"
+    # 	],
+    # 	"daily": [
+    # 		"gc_education.tasks.daily"
+    # 	],
+    # 	"hourly": [
+    # 		"gc_education.tasks.hourly"
+    # 	],
+    # 	"weekly": [
+    # 		"gc_education.tasks.weekly"
+    # 	],
+    # 	"monthly": [
+    # 		"gc_education.tasks.monthly"
+    # 	],
+}
 
 # Testing
 # -------

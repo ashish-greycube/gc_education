@@ -1,6 +1,6 @@
 import frappe
 import pymssql
-from frappe.utils import add_days, getdate, now
+from frappe.utils import add_days, getdate, now, cint
 
 # e.g. check out has to be 30 minutes after check in
 MINIMUM_CHECK_OUT_DELAY_MINUTES = 30
@@ -43,6 +43,8 @@ def make_checkin(row, employee, in_out):
 
 @frappe.whitelist()
 def sync_user_attendance_events():
+    if not cint(frappe.db.get_single_value("Matrix Settings", "enable_sync")):
+        frappe.throw("Attendance Sync is disabled")
 
     sync_date = add_days(
         frappe.db.get_single_value("Matrix Settings", "last_sync_date"), 1

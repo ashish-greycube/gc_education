@@ -2,6 +2,18 @@
 
 Education Module Extensions
 
+#### Sync Attendance with Matrix
+
+- Attendance is synced from on-premise MSSQL instance in the school. (view Mx_VEW_UserAttendanceEvents)
+- An Employee CheckIn is created in ERP for first event (IN) and last event (OUT) per user for the day
+- A cron is scheduled to run at 1800, to sync attendance since last sync
+- User can manually trigger a sync since any date from Matrix Settings by changing the Last Sync Date
+- Matrix Settings has the last sync date, which is the date after which all events are fetched from Matrix
+- Attendance will have to be created in Erp through Auto Attendance 
+- Syncing feature can be disabled from Matrix Settings
+- NOTE: The PC with the SQL INSTANCE is switched off after 6 PM ususally.
+
+
 #### License
 
 MIT
